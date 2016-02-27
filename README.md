@@ -1,4 +1,5 @@
 # NETB380-Scheduler
-NBU course scheduler (Test project)
+NBU course scheduler (concept test project)
+C++ Qt GUI
 
-TEST
+TEST git shell config.
