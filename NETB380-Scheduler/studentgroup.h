@@ -1,5 +1,6 @@
 #ifndef STUDENTGROUP_H
 #define STUDENTGROUP_H
+
 #include <course.h>
 #include <list>
 #include <string>
@@ -16,7 +17,7 @@ private:
     int _number_students;
 
     // List of classes that group attends
-    list<Course> _courses;
+    list<Course*> _courses;
 
 public:
     StudentGroup();
