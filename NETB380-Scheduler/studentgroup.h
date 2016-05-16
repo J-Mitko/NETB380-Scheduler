@@ -2,11 +2,15 @@
 #define STUDENTGROUP_H
 
 #include <course.h>
+
+#include <lecturer.h>
+
 #include <list>
 #include <string>
 
 using namespace std;
 
+class Course;
 
 class StudentGroup
 {

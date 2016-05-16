@@ -7,6 +7,7 @@
 
 using namespace std;
 
+class Course;
 
 class Lecturer
 {
@@ -23,10 +24,10 @@ public:
     Lecturer(int id,string name);
 
     void add_course(Course* course);
-    void get_course_id(int id);
+    int get_course_id(int id);
 
     void set_pref_matrix(int arr[][6]);
-    void get_pref_matix(int index_1,int index_2);
+    int get_pref_matix(int index_1,int index_2);
 
     void sort();
     bool sort_by();
