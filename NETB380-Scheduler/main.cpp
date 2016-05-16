@@ -66,11 +66,11 @@ int main()
     //------------------------------
 
 
-    vector<Lecturer> prof_list;
-        prof_list.push_back(prof1);
-        prof_list.push_back(prof2);
-        prof_list.push_back(prof3);
-        prof_list.push_back(prof4);
+    vector<Lecturer*> prof_list;
+        prof_list.push_back(&prof1);
+        prof_list.push_back(&prof2);
+        prof_list.push_back(&prof3);
+        prof_list.push_back(&prof4);
 
     for(int i=0;i<=2;i++)
     {
@@ -78,7 +78,7 @@ int main()
         {
             for(int u = 0;u<6;u++)
             {
-                if(prof_list.at(i)->get_pref_matrix(j,u) == prof_list[i].get_pref_matrix(j,u++))
+                if(prof_list[i]->get_pref_matix(j,u) == prof_list[i]->get_pref_matix(j,u++))
                 {
                    // prof_list[i].
                 }

@@ -13,7 +13,7 @@ Lecturer::Lecturer(int id,string name)
 
 void Lecturer::add_course(Course &course)
 {
-    this->_courses.push_back(course);
+    this->_courses.push_back(&course);
 }
 
 int Lecturer::get_course_id(int id)

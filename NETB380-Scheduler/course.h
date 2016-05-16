@@ -7,8 +7,8 @@
 
 using namespace std;
 
-//class Lecturer;
-//class StudentGroup;
+class Lecturer;
+class StudentGroup;
 
 class Course
 {
@@ -28,7 +28,7 @@ private:
 public:
     Course();
 
-    Course(int id, string name, int number_students, int max_students, Lecturer &lecturer, StudentGroup &studentgroup);
+    Course(int id, string name, int number_students, int max_students, Lecturer *lecturer, StudentGroup *studentgroup);
 
     int get_course_id();
     int get_number_students();
