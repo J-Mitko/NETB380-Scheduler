@@ -22,11 +22,11 @@ int Course::get_course_id()
 }
 int Course::get_number_students()
 {
-    return 0;
+    return _number_students;
 }
 int Course::get_max_number_students()
 {
-    return 0;
+    return _max_number_students;
 }
 
 int Course::get_lecturer(Lecturer* lecturer)

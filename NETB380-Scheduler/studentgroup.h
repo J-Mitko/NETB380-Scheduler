@@ -29,7 +29,7 @@ public:
 
     void add_course(Course* course);
 
-    int get_id();
+    int get_group_id();
     int get_number_students();
 
     // Returns reference to list of classes that group attends
