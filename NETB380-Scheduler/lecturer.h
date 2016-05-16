@@ -23,7 +23,7 @@ public:
     Lecturer();
     Lecturer(int id,string name);
 
-    void add_course(Course* course);
+    void add_course(Course& course);
     int get_course_id(int id);
 
     void set_pref_matrix(int arr[][6]);

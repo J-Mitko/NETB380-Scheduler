@@ -11,7 +11,7 @@ Lecturer::Lecturer(int id,string name)
     this->_name = name;
 }
 
-void Lecturer::add_course(Course *course)
+void Lecturer::add_course(Course &course)
 {
     this->_courses.push_back(course);
 }

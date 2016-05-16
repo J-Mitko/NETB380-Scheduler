@@ -4,7 +4,7 @@ Course::Course()
 {
 
 }
-Course::Course(int id,string name,int number_students,int max_students, Lecturer* lecturer,StudentGroup* studentgroup)
+Course::Course(int id,string name,int number_students,int max_students, Lecturer& lecturer,StudentGroup& studentgroup)
 {
 
     _id = id;
@@ -29,11 +29,11 @@ int Course::get_max_number_students()
     return _max_number_students;
 }
 
-int Course::get_lecturer(Lecturer* lecturer)
+int Course::get_lecturer(Lecturer &lecturer)
 {
     return 0;
 }
-int Course::get_student_group(StudentGroup group)
+int Course::get_student_group(StudentGroup &group)
 {
     return 0;
 }
