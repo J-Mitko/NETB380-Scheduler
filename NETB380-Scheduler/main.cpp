@@ -20,11 +20,11 @@ int main()
     StudentGroup group4(3,"group4",42);
 
 
-    Course netbA(0,"course A",9 ,15,prof1,group1);
-    Course netbB(1,"course B",10,15,prof2,group1);
-    Course netbC(2,"course C",20,50,prof3,group2);
-    Course netbD(3,"course D",15,15,prof4,group3);
-    Course netbE(4,"course E",40,20,prof4,group4);
+    Course netbA(0,"course A",9 ,15,&prof1,&group1);
+    Course netbB(1,"course B",10,15,&prof2,&group1);
+    Course netbC(2,"course C",20,50,&prof3,&group2);
+    Course netbD(3,"course D",15,15,&prof4,&group3);
+    Course netbE(4,"course E",40,20,&prof4,&group4);
 
     //asigning course to lectorers
     prof1.add_course(netbA);
