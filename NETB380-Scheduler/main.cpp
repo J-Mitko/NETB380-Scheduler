@@ -66,25 +66,69 @@ int main()
     //------------------------------
 
 
+    vector<Course*> courses_list;
+        courses_list.push_back(&netbA);
+        courses_list.push_back(&netbB);
+        courses_list.push_back(&netbC);
+        courses_list.push_back(&netbD);
+        courses_list.push_back(&netbE);
+
+
+
     vector<Lecturer*> prof_list;
         prof_list.push_back(&prof1);
         prof_list.push_back(&prof2);
         prof_list.push_back(&prof3);
         prof_list.push_back(&prof4);
 
-    for(int i=0;i<=2;i++)
+    list<int> h;
+    list<list<int>>day;
+
+
+
+    for(int i=0;i<= prof_list.size();i++)
     {
         for(int j = 0;j<6;j++)
         {
             for(int u = 0;u<6;u++)
             {
-                if(prof_list[i]->get_pref_matix(j,u) == prof_list[i]->get_pref_matix(j,u++))
+                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u++))
                 {
-                   // prof_list[i].
+                   ;
+                }
+                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i++]->get_pref_matrix(j,u))// CONFLICT INTE
+                {
+                    for(int v;v<= courses_list.size();v++)// number of courses
+                    {
+                        int course1 = prof_list[i]->get_course_id(v);// GET 1ST COURSE OF  PROF. 1
+                        int course2 = prof_list[i++]->get_course_id(v);
+
+                        for(int c = 0;c<=4;c++)
+                        {
+                            if((courses_list[c]->get_course_id() == course1) > (courses_list[c]->get_course_id() == course2))
+                            {
+                                //win
+
+                            }
+                            else if((courses_list[c]->get_course_id() == course1) == (courses_list[c]->get_course_id() == course2))
+                            {
+                                //conflict
+                                ;
+                            }
+                            else //lose
+                            {
+                               ;
+                            }
+                        }
+                    }
+
+                }
+                else// no match [0][1] != [0][1]
+                {
+
                 }
             }
         }
     }
-
     return 0;
 }

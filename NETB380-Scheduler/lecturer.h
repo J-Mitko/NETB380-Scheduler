@@ -27,7 +27,7 @@ public:
     int get_course_id(int id);
 
     void set_pref_matrix(int arr[][6]);
-    int get_pref_matix(int index_1,int index_2);
+    int get_pref_matrix(int index_1,int index_2);
 
     void sort();
     bool sort_by();

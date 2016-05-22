@@ -37,7 +37,7 @@ void Lecturer::set_pref_matrix(int arr[][6])
     }
 }
 
-int Lecturer::get_pref_matix(int index_1, int index_2)
+int Lecturer::get_pref_matrix(int index_1, int index_2)
 {
     return _prefrence_matrix[index_1][index_2];
 }
