@@ -27,6 +27,14 @@ int Lecturer::get_course_id(int index)
     }
     return -1;// if no match is found - (-1)
 }
+Course* Lecturer::get_course(int index)
+{
+    return _courses.at(index);
+}
+int Lecturer::get_num_of_courses()
+{
+    return _courses.size();
+}
 
 void Lecturer::set_pref_matrix(int arr[][6])
 {

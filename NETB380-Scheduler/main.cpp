@@ -2,7 +2,6 @@
 #include <iostream>
 
 #include<course.h>
-#include<studentgroup.h>
 #include<lecturer.h>
 
 using namespace std;
@@ -14,17 +13,12 @@ int main()
     Lecturer prof3(2,"prof3");
     Lecturer prof4(3,"prof4");
 
-    StudentGroup group1(0,"group1",10);
-    StudentGroup group2(1,"group2",20);
-    StudentGroup group3(2,"group3",30);
-    StudentGroup group4(3,"group4",42);
 
-
-    Course netbA(0,"course A",9 ,15,&prof1,&group1);
-    Course netbB(1,"course B",10,15,&prof2,&group1);
-    Course netbC(2,"course C",20,50,&prof3,&group2);
-    Course netbD(3,"course D",15,15,&prof4,&group3);
-    Course netbE(4,"course E",40,20,&prof4,&group4);
+    Course netbA(0,"course A",9 ,15,&prof1);
+    Course netbB(1,"course B",10,15,&prof2);
+    Course netbC(2,"course C",20,50,&prof3);
+    Course netbD(3,"course D",15,15,&prof4);
+    Course netbE(4,"course E",40,20,&prof4);
 
     //asigning course to lectorers
     prof1.add_course(netbA);
@@ -38,8 +32,6 @@ int main()
         arr_1[0][1]=  1;
         arr_1[0][2]=  1;
         arr_1[0][3]=  1;
-        arr_1[5][0]=  1;
-        arr_1[5][1]=  1;
 
     int arr_2[6][6];
         arr_2[4][0]=  1;
@@ -84,59 +76,58 @@ int main()
     list<int> h;
     list<list<int>>day;
 
-
-
-    for(int i=0;i < prof_list.size();i++)
+    for(unsigned int i=0;i < prof_list.size();i++)//for every profesor
     {
-        for(int j = 0;j < 5;j++)
+        for(unsigned int j=i+1;j < prof_list.size();j++)//for every other we compare with profesor
         {
-            for(int u = 0;u < 5;u++)
+            for(int day1=0;day1 < 6;day1++)//for every day
             {
-                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u))
+                for(int u=0;u < 6;u++)//for every hour
                 {
-
-                }
-                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u))// CONflict of intrest
-                {
-
-                    for(unsigned int v=0;v < courses_list.size();v++)// number of courses
+                    if(prof_list[i]->get_pref_matrix(day1,u) ==1)//if the professor cares
                     {
-                        int course1 = prof_list[i]->get_course_id(v);// GET 1ST COURSE OF PROF. 1
-                        int course2 = prof_list[i]->get_course_id(v);
-
-                        for(int c = 0;c < courses_list.size();c++)
+                        if(prof_list[i]->get_pref_matrix(day1,u) == prof_list[j]->get_pref_matrix(day1,u))//if another professor also cares
                         {
-                            cout << "c= "<< c;
-
-                            cout << "   course id = " << courses_list[c]->get_course_id() << endl;
-
-                            if((courses_list[c]->get_course_id() == course1) > (courses_list[c]->get_course_id() == course2))
+                            //cout << "conflict" << endl;
+                            int counter = prof_list[i]->get_num_of_courses();
+                            for( int v=0;v < counter;v++)// THE REAL number of courses that the professor cares about
                             {
-                                //win
-                                cout << "win"<< endl;
+                                //int course1 = prof_list[i]->get_course_id(v);// GET 1ST COURSE OF PROF. 1 << for real shot down this line!
+                                int course2;
+                                int course1 = prof_list[i]->get_course(v)->get_number_students(); //profesor -> course -> num_of_students BUT YOU WANT TO DIG TO CHINA!!!
+
+                                for( int c=0;c < counter;c++)
+                                {
+                                    course2 = prof_list[j]->get_course(c)->get_number_students(); //again but for the second guy lets name him J cuz he is cool
+                                    if((course1) >  course2)
+                                    {
+                                        cout << "win"<< endl;
+
+                                    }
+                                    else if(course1 == course2)
+                                    {
+                                        cout<< "conflict"<< endl;
+                                    }
+                                    else
+                                    {
+                                        cout << "lose"<< endl;
+                                    }
+
+                                }
 
                             }
-                            else if((courses_list[c]->get_course_id() == course1) == (courses_list[c]->get_course_id() == course2))
-                            {
-                                cout<< "conflict"<< endl;
-
-                            }
-                            else //lose
-                            {
-                                cout << "lose"<< endl;
-                            }
-                            cout << "end of loop body 2"<< endl;
                         }
-                        cout << "end of loop body1"<< endl;
+                        else
+                        {
+                            //cout << "no conflict" << endl;
+
+                        }
                     }
-                    cout << "end of loop body0"<< endl;
-                }
-                else// no match [0][1] != [0][1]
-                {
 
                 }
             }
         }
     }
+    //fuck this for real :D kak shte go splitvash ne te znam bro :D
     return 0;
 }

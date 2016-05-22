@@ -2,13 +2,11 @@
 #define COURSE_H
 
 #include <lecturer.h>
-#include <studentgroup.h>
 #include <string>
 
 using namespace std;
 
 class Lecturer;
-class StudentGroup;
 
 class Course
 {
@@ -23,19 +21,17 @@ private:
     int _max_number_students;
 
     Lecturer* _lecturer;
-    StudentGroup* _group;
 
 public:
     Course();
 
-    Course(int id, string name, int number_students, int max_students, Lecturer *lecturer, StudentGroup *studentgroup);
+    Course(int id, string name, int number_students, int max_students, Lecturer *lecturer);
 
     int get_course_id();
     int get_number_students();
     int get_max_number_students();
 
     int get_lecturer(Lecturer& lecturer);
-    int get_student_group(StudentGroup& group);
 
 };
 

@@ -12,11 +12,9 @@ TEMPLATE = app
 SOURCES += main.cpp \
     lecturer.cpp \
     course.cpp \
-    studentgroup.cpp \
     schedule.cpp
 
 HEADERS += \
     lecturer.h \
     course.h \
-    studentgroup.h \
     schedule.h

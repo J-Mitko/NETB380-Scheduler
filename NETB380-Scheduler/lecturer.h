@@ -25,6 +25,8 @@ public:
 
     void add_course(Course& course);
     int get_course_id(int index);
+    int get_num_of_courses();
+    Course* get_course(int index);
 
     void set_pref_matrix(int arr[][6]);
     int get_pref_matrix(int index_1,int index_2);
