@@ -16,11 +16,13 @@ void Lecturer::add_course(Course &course)
     this->_courses.push_back(&course);
 }
 
-int Lecturer::get_course_id(int id)
+int Lecturer::get_course_id(int index)
 {
-    for(int i = 0;i <= _courses.size();i++)
+    //loop to match index with course id MISTERY
+
+    for(int i = 0;i < _courses.size();i++)
     {
-        if(_courses.at(i)->get_course_id() == id)
+        if(_courses.at(i)->get_course_id() == index)
             return _courses.at(i)->get_course_id();
     }
     return -1;// if no match is found - (-1)

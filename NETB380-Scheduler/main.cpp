@@ -86,42 +86,50 @@ int main()
 
 
 
-    for(int i=0;i<= prof_list.size();i++)
+    for(int i=0;i < prof_list.size();i++)
     {
-        for(int j = 0;j<6;j++)
+        for(int j = 0;j < 5;j++)
         {
-            for(int u = 0;u<6;u++)
+            for(int u = 0;u < 5;u++)
             {
-                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u++))
+                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u))
                 {
-                   ;
-                }
-                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i++]->get_pref_matrix(j,u))// CONFLICT INTE
-                {
-                    for(int v;v<= courses_list.size();v++)// number of courses
-                    {
-                        int course1 = prof_list[i]->get_course_id(v);// GET 1ST COURSE OF  PROF. 1
-                        int course2 = prof_list[i++]->get_course_id(v);
 
-                        for(int c = 0;c<=4;c++)
+                }
+                if(prof_list[i]->get_pref_matrix(j,u) == prof_list[i]->get_pref_matrix(j,u))// CONflict of intrest
+                {
+
+                    for(unsigned int v=0;v < courses_list.size();v++)// number of courses
+                    {
+                        int course1 = prof_list[i]->get_course_id(v);// GET 1ST COURSE OF PROF. 1
+                        int course2 = prof_list[i]->get_course_id(v);
+
+                        for(int c = 0;c < courses_list.size();c++)
                         {
+                            cout << "c= "<< c;
+
+                            cout << "   course id = " << courses_list[c]->get_course_id() << endl;
+
                             if((courses_list[c]->get_course_id() == course1) > (courses_list[c]->get_course_id() == course2))
                             {
                                 //win
+                                cout << "win"<< endl;
 
                             }
                             else if((courses_list[c]->get_course_id() == course1) == (courses_list[c]->get_course_id() == course2))
                             {
-                                //conflict
-                                ;
+                                cout<< "conflict"<< endl;
+
                             }
                             else //lose
                             {
-                               ;
+                                cout << "lose"<< endl;
                             }
+                            cout << "end of loop body 2"<< endl;
                         }
+                        cout << "end of loop body1"<< endl;
                     }
-
+                    cout << "end of loop body0"<< endl;
                 }
                 else// no match [0][1] != [0][1]
                 {

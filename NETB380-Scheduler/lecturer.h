@@ -24,7 +24,7 @@ public:
     Lecturer(int id,string name);
 
     void add_course(Course& course);
-    int get_course_id(int id);
+    int get_course_id(int index);
 
     void set_pref_matrix(int arr[][6]);
     int get_pref_matrix(int index_1,int index_2);
