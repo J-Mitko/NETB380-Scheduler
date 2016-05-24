@@ -18,3 +18,6 @@ HEADERS += \
     lecturer.h \
     course.h \
     schedule.h
+
+#QMAKE_CXXFLAGS += -lpq
+QMAKE_LFLAGS += -lpq

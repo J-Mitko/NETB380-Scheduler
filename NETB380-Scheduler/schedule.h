@@ -2,21 +2,15 @@
 #define SCHEDULE_H
 
 #include <vector>
-
+#include "course.h"
 using namespace std;
 
-
-class Schedule
-{
+class Schedule {
 private:
-    vector<int> day;
-    vector<vector<int>> week;
-
+    vector<Course*> timeslot; // a 36 element vector with courses
 
 public:
     Schedule();
-
-
 };
 
 #endif // SCHEDULE_H

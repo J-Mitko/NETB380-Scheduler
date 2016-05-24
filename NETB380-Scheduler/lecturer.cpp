@@ -1,53 +1,28 @@
 #include "lecturer.h"
 
-Lecturer::Lecturer()
-{
-
+Lecturer::Lecturer(const int& id, const string& firstname, const string& lastname, const vector<int>& preference) {
+    this->id = id;
+    this->firstname = firstname;
+    this->lastname = lastname;
+    this->preference = preference;
 }
 
-Lecturer::Lecturer(int id,string name)
-{
-    this->_faculty_id = id;
-    this->_name = name;
+int Lecturer::get_id() const {
+    return id;
 }
 
-void Lecturer::add_course(Course &course)
-{
-    this->_courses.push_back(&course);
+string Lecturer::get_firstname() const {
+    return firstname;
 }
 
-int Lecturer::get_course_id(int index)
-{
-    //loop to match index with course id MISTERY
-
-    for(int i = 0;i < _courses.size();i++)
-    {
-        if(_courses.at(i)->get_course_id() == index)
-            return _courses.at(i)->get_course_id();
-    }
-    return -1;// if no match is found - (-1)
-}
-Course* Lecturer::get_course(int index)
-{
-    return _courses.at(index);
-}
-int Lecturer::get_num_of_courses()
-{
-    return _courses.size();
+string Lecturer::get_lastname() const {
+    return lastname;
 }
 
-void Lecturer::set_pref_matrix(int arr[][6])
-{
-    for(int i = 0;i<6;i++)
-    {
-        for(int j = 0;j< 6;j++)
-        {
-            this->_prefrence_matrix[i][j] = arr[i][j];
-        }
-    }
+string Lecturer::get_fullname() const {
+    return firstname + ' ' + lastname;
 }
 
-int Lecturer::get_pref_matrix(int index_1, int index_2)
-{
-    return _prefrence_matrix[index_1][index_2];
+vector<int> Lecturer::get_preference() const {
+    return preference;
 }

@@ -27,5 +27,7 @@
 *.out
 *.app
 
+# Platform/Compile specific files and dirs
 .DS_Store
 *.pro.user
+build-NETB380-Scheduler*

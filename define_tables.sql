@@ -4,8 +4,7 @@
  *  something like 'courseinfo'.
  */
 
-drop table lab_courses;
-drop table theory_courses;
+drop table courses;
 drop table lecturers;
 drop table degrees;
 
@@ -21,7 +20,7 @@ create table degrees (
     degree_name     text
 );
 
-create table theory_courses (
+create table courses (
     id                          serial primary key,
     name                        text,
     lecturer_id                 integer,
@@ -29,16 +28,12 @@ create table theory_courses (
     enrolled_students           integer,
     semester                    integer,
     degree_id                   integer,
-    foreign key(degree_id)      references degrees (id)
+    foreign key(degree_id)      references degrees (id),
+    theory_course_id            integer,
+    foreign key(theory_course_id) references courses (id)
 );
 
-create table lab_courses (
-    id                          integer,
-    foreign key(id)             references theory_courses(id),
-    name                        text,
-    lecturer_id                 integer,
-    foreign key(lecturer_id)    references lecturers (id)
-);
+
 
 -- Lecutrers -- 
 
@@ -71,88 +66,91 @@ insert into degrees (id, degree_name) values
 insert into degrees (id, degree_name) values
         (DEFAULT, 'Network Technologies');
 
+alter sequence courses_id_seq MINVALUE 0;
+alter sequence courses_id_seq restart with 0 increment by 1;
+-- Dummy theory course --
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, '<DUMMY_COURSE>', 1, 0, 1, 1, 0);
+
 -- Theory Courses --
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'C++ 101 (for Informatics)', 1, 25, 1, 1);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 (for Informatics)', 1, 25, 1, 1, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Computer Arhitecture (for Informatics)', 2, 25, 1, 1);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 Lab (for Informatics)', 1, 25, 1, 1, 1);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Algebra I (for Informatics)', 3, 25, 1, 1);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture (for Informatics)', 2, 25, 1, 1, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'History of Computing (for Informatics)', 4, 25, 1, 1);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture Lab (for Informatics)', 2, 25, 1, 1, 3);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Algebra I (for Informatics)', 3, 25, 1, 1, 0);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'History of Computing (for Informatics)', 4, 25, 1, 1, 0);
 
 -- End for Informatics theory courses --
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'C++ 101 (for Computer Science)', 1, 25, 1, 2);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 (for Computer Science)', 1, 25, 1, 2, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Computer Arhitecture (for Computer Science)', 2, 25, 1, 2);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 Lab (for CS)', 1, 25, 1, 2, 7);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Algebra I (for Computer Science)', 3, 25, 1, 2);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture (for Computer Science)', 2, 25, 1, 2, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'History of Computing (for Computer Science)', 4, 25, 1, 2);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture Lab (for Computer Science)', 2, 25, 1, 2, 9);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Algebra I (for Computer Science)', 3, 25, 1, 2, 0);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'History of Computing (for Computer Science)', 4, 25, 1, 2, 0);
 
 -- End for Computer science theory courses --
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'C++ 101 (for Software Engineering)', 1, 25, 1, 3);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 (for Software Engineering)', 1, 25, 1, 3, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Computer Arhitecture (for Software Engineering)', 2, 25, 1, 3);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 Lab (for Software Engineering)', 1, 25, 1, 3, 13);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Algebra I (for Software Engineering)', 3, 25, 1, 3);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture (for Software Engineering)', 2, 25, 1, 3, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'History of Computing (for Software Engineering)', 4, 25, 1, 3);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture Lab (for Software Engineering)', 2, 25, 1, 3, 15);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Algebra I (for Software Engineering)', 3, 25, 1, 3, 0);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'History of Computing (for Software Engineering)', 4, 25, 1, 3, 0);
 
 -- End for Software Engineering theory courses --
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'C++ 101 (for Network Technologies)', 1, 25, 1, 4);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 (for Network Technologies)', 1, 25, 1, 4, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Computer Arhitecture (for Network Technologies)', 2, 25, 1, 4);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'C++ 101 Lab (for Network Technologies)', 1, 25, 1, 4, 19);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'Algebra I (for Network Technologies)', 3, 25, 1, 4);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture (for Network Technologies)', 2, 25, 1, 4, 0);
 
-insert into theory_courses (id, name, lecturer_id, enrolled_students, semester, degree_id) values
-    (DEFAULT, 'History of Computing (for Network Technologies)', 4, 25, 1, 4);
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Computer Architecture Lab (for Network Technologies)', 2, 25, 1, 4, 21);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'Algebra I (for Network Technologies)', 3, 25, 1, 4, 0);
+
+insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
+    (DEFAULT, 'History of Computing (for Network Technologies)', 4, 25, 1, 4, 0);
 
 -- End for Network Technologies theory courses --
-
--- Lab Courses --
-
-insert into lab_courses (id, name, lecturer_id) values
-    (1, 'C++ Lab (for Informatics)', 1);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (2, 'Computer Arhitecture Lab (for Informatics)', 2);
-
--- End for Informatics theory courses --
-
-insert into lab_courses (id, name, lecturer_id) values
-    (5, 'C++ Lab (for CS)', 1);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (6, 'Computer Arhitecture Lab (for CS)', 2);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (9, 'C++ Lab (for SE)', 1);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (10, 'Computer Arhitecture Lab (for SE)', 2);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (13, 'C++ Lab (for NT)', 1);
-
-insert into lab_courses (id, name, lecturer_id) values
-    (14, 'Computer Arhitecture Lab (for NT)', 2);

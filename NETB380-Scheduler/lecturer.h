@@ -3,36 +3,25 @@
 
 #include <string>
 #include <vector>
-#include <course.h>
-
 using namespace std;
-
-class Course;
 
 class Lecturer
 {
 private:
-    int _faculty_id;
-    string _name;
+    int id;
+    string firstname;
+    string lastname;
+    vector<int> preference; // preference level for each of the 6 daily lecutre timesots
+                            // The preference order should be from 0 (lowest) to 5 (highests)
 
-    int _prefrence_matrix[6][6];
-
-    // List of classes that professor teaches
-    vector<Course*> _courses;
 public:
-    Lecturer();
-    Lecturer(int id,string name);
+    Lecturer(const int& id, const string& firstname, const string& lastname, const vector<int>& preference);
 
-    void add_course(Course& course);
-    int get_course_id(int index);
-    int get_num_of_courses();
-    Course* get_course(int index);
-
-    void set_pref_matrix(int arr[][6]);
-    int get_pref_matrix(int index_1,int index_2);
-
-    void sort();
-    bool sort_by();
+    int get_id() const;
+    string get_firstname() const;
+    string get_lastname() const;
+    string get_fullname() const;
+    vector<int> get_preference() const;
 };
 
 #endif // LECTURER_H

@@ -1,35 +1,46 @@
 #include "course.h"
 
-Course::Course()
+Course::Course(const int& id, const string& name, const int& lecturer_id, const int& enrolled_students, const int& semester, const int& degree_id, const int& theory_course_id)
 {
-
-}
-Course::Course(int id,string name,int number_students,int max_students, Lecturer* lecturer)
-{
-
-    _id = id;
-    _name = name;
-    _number_students = number_students;
-    _max_number_students = max_students;
-
-    _lecturer = lecturer;
+    this->id = id;
+    this->name = name;
+    this->lecturer_id = lecturer_id;
+    this->enrolled_students = enrolled_students;
+    this->semester = semester;
+    this->degree_id = degree_id;
+    this->theory_course_id = theory_course_id;
 }
 
-int Course::get_course_id()
+int Course::get_id() const
 {
-    return _id;
-}
-int Course::get_number_students()
-{
-    return _number_students;
-}
-int Course::get_max_number_students()
-{
-    return _max_number_students;
+    return id;
 }
 
-int Course::get_lecturer(Lecturer &lecturer)
-{
-    return 0;
+string Course::get_name() const {
+    return name;
+}
+
+int Course::get_lecturer_id() const {
+    return lecturer_id;
+}
+
+int Course::get_enrolled_students() const {
+    return enrolled_students;
+}
+
+int Course::get_semester() const {
+    return semester;
+}
+
+int Course::get_degree_id() const {
+    return degree_id;
+}
+
+int Course::get_theory_course_id() const {
+    return theory_course_id;
+}
+
+bool Course::is_theory_course() const {
+    return theory_course_id == 0;
 }
 
