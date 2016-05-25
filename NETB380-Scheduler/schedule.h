@@ -25,7 +25,9 @@ public:
     int get_course_id_at(int day, int timeslot);
     void set_course_id_at(int day, int timeslot, int course_id);
     void randomize_schedule();
+    void swap_timeslots(int day1, int timeslot1, int day2, int timeslot2);
     void print_schedule();
+    bool is_theory_before_lab(int day, int timeslot);
 };
 
 #endif // SCHEDULE_H

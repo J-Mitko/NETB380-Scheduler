@@ -44,6 +44,14 @@ void Schedule::randomize_schedule() {
 	random_shuffle(timeslots.begin(), timeslots.end(), rng); // randomize
 }
 
+void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) {
+	int index1 = TIMESLOTS_PER_DAY * day1 + timeslot1;
+	int index2 = TIMESLOTS_PER_DAY * day2 + timeslot2;
+	int temp_course_id = timeslots[index1];
+	timeslots[index1] = timeslots[index2];
+	timeslots[index2] = temp_course_id;
+}
+
 void Schedule::print_schedule() {
 	for (int i = 0; i < NUM_WORKING_DAYS * TIMESLOTS_PER_DAY; i++) {
 		if (i % TIMESLOTS_PER_DAY == 0) {
@@ -62,5 +70,23 @@ void Schedule::print_schedule() {
 		string course_name = course->get_name();
 		puts(course_name.c_str());
 	}
+}
+
+// Give a timeslot and if it has s lab course in it
+// it will return wether it is after the theory
+bool Schedule::is_theory_before_lab(int day, int timeslot) {
+	int index = TIMESLOTS_PER_DAY * day + timeslot;
+	if (timeslots[index] == 0)
+		return true;
+	Course* course = course_db.get_course_with_id(timeslots[index]);
+	int theory_course_id = course->get_theory_course_id();
+	if (theory_course_id == 0)
+		return true;
+
+	for (int i = index + 1; i < TIMESLOTS_PER_DAY * NUM_WORKING_DAYS; i++) {
+		if (timeslots[i] == theory_course_id)
+			return false;
+	}
+	return true;
 }
 

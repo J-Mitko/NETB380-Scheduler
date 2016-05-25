@@ -29,6 +29,7 @@ int main() {
     Schedule schedule(course_db);
     schedule.randomize_schedule();
     puts("Printing schedule...");
+    schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
 
     PQclear(result);

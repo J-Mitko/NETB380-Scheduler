@@ -13,7 +13,7 @@ public:
     CourseDB();
     CourseDB(PGresult *result);
     std::map<int,Course> get_id_to_course_map() const;
-    Course* get_course_with_id(int id) ;
+    Course* get_course_with_id(int id);
     int get_number_of_courses() const;
     vector<int> get_all_course_ids();
 };
