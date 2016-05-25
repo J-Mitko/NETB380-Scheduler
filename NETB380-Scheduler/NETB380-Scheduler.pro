@@ -12,12 +12,14 @@ TEMPLATE = app
 SOURCES += main.cpp \
     lecturer.cpp \
     course.cpp \
-    schedule.cpp
+    schedule.cpp \
+    courseDB.cpp
 
 HEADERS += \
     lecturer.h \
     course.h \
-    schedule.h
+    schedule.h \
+    courseDB.h
 
 #QMAKE_CXXFLAGS += -lpq
 QMAKE_LFLAGS += -lpq

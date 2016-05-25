@@ -7,40 +7,31 @@
 #include "course.h"
 #include "lecturer.h"
 #include "schedule.h"
+#include "courseDB.h"
 using namespace std;
 
-void tryDbConnection() {
+int main() {
     PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1");
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
         puts(PQerrorMessage(conn));
-        return;
+        return 0;
     }
     puts("[INFO] Connected successfully");
 
     PGresult* result = PQexec(conn, "select * from courses order by id");
     if (PQresultStatus(result) != PGRES_TUPLES_OK) {
         puts("[INFO] No data was found in table 'courses'.");
-        return;
+        return 0;
     }
-    int rows = PQntuples(result);
-    printf("[INFO] Query retrieved %d records.", rows);
+    CourseDB course_db(result);
 
-    puts("");
-    puts("======================================================");
-    for(int row = 0; row < rows; row++) {
-        for (int col = 0; col < 7; col++) {
-            printf("%s\t", PQgetvalue(result, row, col));
-        }
-        puts("");
-    }
-    puts("======================================================");
+    Schedule schedule(course_db);
+    schedule.randomize_schedule();
+    puts("Printing schedule...");
+    schedule.print_schedule();
+
     PQclear(result);
     PQfinish(conn);
-}
-
-int main()
-{
-    tryDbConnection();
     return 0;
 }

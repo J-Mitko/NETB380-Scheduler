@@ -2,6 +2,7 @@
 #define COURSE_H
 
 #include <string>
+#include "include/libpq-fe.h"
 using namespace std;
 
 class Course

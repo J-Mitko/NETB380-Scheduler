@@ -1,4 +1,6 @@
 #include "course.h"
+#include <cstdio> // should use exceptions later
+#include <stdlib.h>
 
 Course::Course(const int& id, const string& name, const int& lecturer_id, const int& enrolled_students, const int& semester, const int& degree_id, const int& theory_course_id)
 {
