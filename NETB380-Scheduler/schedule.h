@@ -15,8 +15,6 @@ extern int THURSDAY;
 extern int FRIDAY;
 extern int SATURDAY;
 
-extern int MAX_FITNESS;
-
 class Schedule {
 private:
     vector<int> timeslots; // a 36 element vector with course_ids
@@ -31,16 +29,17 @@ public:
     Schedule(CourseDB course_db,Lecturer lectures);
     int get_course_id_at(int day, int timeslot);
     void set_course_id_at(int day, int timeslot, int course_id);
+
     void randomize_schedule();
     void swap_timeslots(int day1, int timeslot1, int day2, int timeslot2);
-    void print_schedule();
-    bool is_theory_before_lab(int day, int timeslot);
 
+    bool is_theory_before_lab(int day, int timeslot);
+    bool is_lab_before_theory(int day, int timeslot);
 
     void fitness_calculation();
-    void mutate();
-    void keep_the_best();
+    void professor_preference_deduction(int day);
 
+    void print_schedule();
 };
 
 #endif // SCHEDULE_H
