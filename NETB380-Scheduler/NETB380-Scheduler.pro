@@ -26,6 +26,6 @@ HEADERS += \
     lecturer.h
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += -L D:\PSQL\lib -lpq
+QMAKE_LFLAGS += -L C:\PostgreSQL\9.5\bin -lpq
 #message($LIBPQ_PATH)
 
