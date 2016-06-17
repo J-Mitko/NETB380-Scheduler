@@ -13,13 +13,15 @@ SOURCES += main.cpp \
     lecturer.cpp \
     course.cpp \
     schedule.cpp \
-    courseDB.cpp
+    courseDB.cpp \
+    population.cpp
 
 HEADERS += \
     lecturer.h \
     course.h \
     schedule.h \
-    courseDB.h
+    courseDB.h \
+    population.h
 
 #QMAKE_CXXFLAGS += -lpq
 QMAKE_LFLAGS += LIBPQ_PATH -lpq

@@ -1,5 +1,7 @@
 #include "lecturer.h"
 
+Lecturer::Lecturer(){}
+
 Lecturer::Lecturer(const int& id, const string& firstname, const string& lastname, const vector<int>& preference) {
     this->id = id;
     this->firstname = firstname;

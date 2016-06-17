@@ -14,7 +14,7 @@ int THURSDAY = 3;
 int FRIDAY = 4;
 int SATURDAY= 5;
 
-const int MAX_FITNESS = 100;
+const int MAX_FITNESS = 600;
 
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
@@ -97,10 +97,31 @@ bool Schedule::is_theory_before_lab(int day, int timeslot) {
 }
 
 
+// it will return weather or not it is before the theory
+// FUTURE HEADAKES
+bool Schedule::is_lab_before_theory(int day, int timeslot)
+{
+    int index = TIMESLOTS_PER_DAY * day + timeslot;
+
+    if (timeslots[index] == 0)//first course of the day
+        return false;
+
+    Course* course = course_db.get_course_with_id(timeslots[index]);
+    int theory_course_id = course->get_theory_course_id();
+
+    if (theory_course_id == 0)
+        return false;
+
+    for (int i = index + 1; i < TIMESLOTS_PER_DAY * NUM_WORKING_DAYS; i++) {
+        if (timeslots[i] == theory_course_id)
+            return true;
+    }
+    return false;
+}
+
 void Schedule::fitness_calculation()
 {
     int current_course_id;
-    int next_course_id;
 
     fitness = MAX_FITNESS;
 
@@ -109,7 +130,6 @@ void Schedule::fitness_calculation()
         for(int i = 0;i<timeslots.size();i++)
         {
             current_course_id = get_course_id_at(day,i);
-            next_course_id = current_course_id + 1;
 
             //check semester <= 1
             if( course_db.get_course_with_id(current_course_id)->get_semester() <= 1)
@@ -121,74 +141,91 @@ void Schedule::fitness_calculation()
                     //check if theory before lab
                     if(is_theory_before_lab(day,i))
                     {
-                        //check professor preference vector
-                        if(professors.get_preference(day) == 0 )
-                        {
-                            fitness -= 15;
-                        }
-                        else if(professors.get_preference(day) == 1 )
-                        {
-                            fitness -= 10;
-                        }
-                        else if(professors.get_preference(day) == 2 )
-                        {
-                            fitness -= 7;
-                        }
-                        else if(professors.get_preference(day) == 3 )
-                        {
-                            fitness -= 5;
-                        }
-                        else if(professors.get_preference(day) == 4 )
-                        {
-                            fitness -= 3;
-                        }
-                        else if(professors.get_preference(day) == 5 )
-                        {
-                            fitness -= 1;
-                        }
+                        professor_preference_deduction(day);//check professor preference vector
                     }
                     // lab before theory
                     else
                     {
                         fitness -= 25;
-                        //check professor preference vector
-                        if(professors.get_preference(day) == 0 )
-                        {
-                            fitness -= 15;
-                        }
-                        else if(professors.get_preference(day) == 1 )
-                        {
-                            fitness -= 10;
-                        }
-                        else if(professors.get_preference(day) == 2 )
-                        {
-                            fitness -= 7;
-                        }
-                        else if(professors.get_preference(day) == 3 )
-                        {
-                            fitness -= 5;
-                        }
-                        else if(professors.get_preference(day) == 4 )
-                        {
-                            fitness -= 3;
-                        }
-                        else if(professors.get_preference(day) == 5 )
-                        {
-                            fitness -= 1;
-                        }
+                        professor_preference_deduction(day);//check professor preference vector
                     }
                 }
+                else // LAB Course
+                {
+                    if(is_lab_before_theory(day,i))// lab before theory
+                    {
+                        fitness -= 25;
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+
+                    else
+                    {
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+                }
+            }
+            else
+            {
+                fitness -= 50;
+
+                //check if it is a theory_course or lab course
+                if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
+                {
+                    //THEORY COURSE
+                    //check if theory before lab
+                    if(is_theory_before_lab(day,i))
+                    {
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+                    // lab before theory
+                    else
+                    {
+                        fitness -= 25;
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+                }
+                else // LAB Course
+                {
+                    if(is_lab_before_theory(day,i))// lab before theory
+                    {
+                        fitness -= 25;
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+                    else
+                    {
+                        professor_preference_deduction(day);//check professor preference vector
+                    }
+                }
+
             }
         }
     }
 }
-void Schedule::mutate()
+
+void Schedule::professor_preference_deduction(int day)
 {
-
-
-}
-void Schedule::keep_the_best()
-{
-
-
+    if(professors.get_preference(day) == 0 )
+    {
+        fitness -= 15;
+    }
+    else if(professors.get_preference(day) == 1 )
+    {
+        fitness -= 10;
+    }
+    else if(professors.get_preference(day) == 2 )
+    {
+        fitness -= 7;
+    }
+    else if(professors.get_preference(day) == 3 )
+    {
+        fitness -= 5;
+    }
+    else if(professors.get_preference(day) == 4 )
+    {
+        fitness -= 3;
+    }
+    else if(professors.get_preference(day) == 5 )
+    {
+        fitness -= 1;
+    }
 }
