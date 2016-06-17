@@ -22,4 +22,4 @@ HEADERS += \
     courseDB.h
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += -lpq
+QMAKE_LFLAGS += LIBPQ_PATH -lpq
