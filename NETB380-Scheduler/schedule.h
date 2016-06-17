@@ -24,6 +24,8 @@ private:
     static int rng(int i);
 
     int fitness;
+    int relative_fitness;//relative fitness of each member.
+    int cumulative_fitness;
     int day_fitness[6];
 
 public:
@@ -41,6 +43,11 @@ public:
     void professor_preference_deduction(int day);
     int get_fitness();
     int get_day_fitness(int day);
+
+    int get_relative_fitness();
+    void set_relative_fitness(int var);
+    int get_cumulative_fitness();
+    void set_cumulative_fitness(int var);
 
     void print_schedule();
 };

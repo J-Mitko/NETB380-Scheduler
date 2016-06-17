@@ -21,13 +21,13 @@ private:
     vector <Schedule> newPopulation;
 
     static int rng_i(int i);
-    static int rng_ab(int a, int b);
+    static double rng_ab(double a, double b);
 public:
     Population(Schedule init_schedule);
     ~Population();
 
     void elitist();
-
+    void selector();
     void mutate();
 
 };

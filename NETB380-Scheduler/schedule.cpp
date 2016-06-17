@@ -257,3 +257,20 @@ int Schedule::get_day_fitness(int day)
 {
     return day_fitness[day];
 }
+
+int Schedule::get_relative_fitness()
+{
+    return relative_fitness;
+}
+void Schedule::set_relative_fitness(int var)
+{
+    relative_fitness = var;
+}
+int Schedule::get_cumulative_fitness()
+{
+    return cumulative_fitness;
+}
+void Schedule::set_cumulative_fitness(int var)
+{
+    cumulative_fitness = var;
+}
