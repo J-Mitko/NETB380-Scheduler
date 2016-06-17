@@ -4,7 +4,7 @@
 #include <vector>
 #include "course.h"
 #include "courseDB.h"
-#include "lecturer.h"
+#include "lecturerDB.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ class Schedule {
 private:
     vector<int> timeslots; // a 36 element vector with course_ids
     CourseDB course_db; // _TODO_ this should really be a pointer
-    Lecturer professors;
+    LecturerDB professors_db;
 
     static int rng(int i);
 
@@ -29,7 +29,7 @@ private:
     int day_fitness[6];
 
 public:
-    Schedule(CourseDB course_db,Lecturer lectures);
+    Schedule(CourseDB course_db,LecturerDB lectures_db);
     int get_course_id_at(int day, int timeslot);
     void set_course_id_at(int day, int timeslot, int course_id);
 
@@ -40,7 +40,7 @@ public:
     bool is_lab_before_theory(int day, int timeslot);
 
     void fitness_calculation();
-    void professor_preference_deduction(int day);
+    void professor_preference_deduction(int id,int day);
     int get_fitness();
     int get_day_fitness(int day);
 

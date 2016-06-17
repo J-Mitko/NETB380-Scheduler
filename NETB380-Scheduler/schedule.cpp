@@ -20,13 +20,15 @@ const int MAX_DAY_FITNESS = 110;
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
 
-Schedule::Schedule(CourseDB course_db,Lecturer lectures) {
+Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
 	timeslots.resize(TIMESLOTS_PER_DAY * NUM_WORKING_DAYS, 0);
 	this->course_db = course_db;
-    this->professors = lectures;
+    this->professors_db = lectures_db;
 
 
     fitness = MAX_FITNESS;
+    relative_fitness = 0;
+    cumulative_fitness = 0;
     for(int i = 0;i<5;i++)
     {
         day_fitness[i] = MAX_DAY_FITNESS;
@@ -148,14 +150,14 @@ void Schedule::fitness_calculation()
                     //check if theory before lab
                     if(is_theory_before_lab(day,i))
                     {
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                     // lab before theory
                     else
                     {
                         fitness -= 20;
                         day_fitness[day] -=20;
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                 }
                 else // LAB Course
@@ -164,12 +166,12 @@ void Schedule::fitness_calculation()
                     {
                         fitness -= 20;
                         day_fitness[day] -=20;
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
 
                     else
                     {
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                 }
             }
@@ -185,14 +187,14 @@ void Schedule::fitness_calculation()
                     //check if theory before lab
                     if(is_theory_before_lab(day,i))
                     {
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                     // lab before theory
                     else
                     {
                         fitness -= 20;
                         day_fitness[day] -=20;
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                 }
                 else // LAB Course
@@ -201,11 +203,11 @@ void Schedule::fitness_calculation()
                     {
                         fitness -= 20;
                         day_fitness[day] -=20;
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                     else
                     {
-                        professor_preference_deduction(day);//check professor preference vector
+                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                     }
                 }
 
@@ -214,35 +216,35 @@ void Schedule::fitness_calculation()
     }
 }
 
-void Schedule::professor_preference_deduction(int day)
+void Schedule::professor_preference_deduction(int id, int day)
 {
     //-40
-    if(professors.get_preference(day) == 0 )
+    if(professors_db.get_lector_with_id(id)->get_preference(day) == 0 )
     {
         fitness -= 14;
         day_fitness[day] -=14;
     }
-    else if(professors.get_preference(day) == 1 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 1 )
     {
         fitness -= 10;
         day_fitness[day] -=10;
     }
-    else if(professors.get_preference(day) == 2 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 2 )
     {
         fitness -= 7;
         day_fitness[day] -=7;
     }
-    else if(professors.get_preference(day) == 3 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 3 )
     {
         fitness -= 5;
         day_fitness[day] -=5;
     }
-    else if(professors.get_preference(day) == 4 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 4 )
     {
         fitness -= 3;
         day_fitness[day] -=3;
     }
-    else if(professors.get_preference(day) == 5 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 5 )
     {
         fitness -= 1;
         day_fitness[day] -=1;
