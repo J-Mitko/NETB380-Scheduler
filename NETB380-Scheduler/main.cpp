@@ -8,6 +8,8 @@
 #include "lecturer.h"
 #include "schedule.h"
 #include "courseDB.h"
+#include "lecturerDB.h"
+
 using namespace std;
 
 int main() {
@@ -25,13 +27,22 @@ int main() {
         return 0;
     }
     CourseDB course_db(result);
-/*
-    Schedule schedule(course_db);
+
+    PQclear(result);
+    result = PQexec(conn, "select * from lecturers order by id");
+    if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+        puts("[INFO] No data was found in table 'lecturers'.");
+        return 0;
+    }
+    LecturerDB lecturer_db(result);
+
+
+    Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
     puts("Printing schedule...");
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
-*/
+
     PQclear(result);
     PQfinish(conn);
     return 0;

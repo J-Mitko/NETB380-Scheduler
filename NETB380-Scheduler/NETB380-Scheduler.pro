@@ -14,14 +14,18 @@ SOURCES += main.cpp \
     course.cpp \
     schedule.cpp \
     courseDB.cpp \
-    population.cpp
+    population.cpp \
+    lecturerDB.cpp
 
 HEADERS += \
-    lecturer.h \
     course.h \
     schedule.h \
     courseDB.h \
-    population.h
+    population.h \
+    lecturerDB.h \
+    lecturer.h
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += LIBPQ_PATH -lpq
+QMAKE_LFLAGS += -L D:\PSQL\lib -lpq
+#message($LIBPQ_PATH)
+
