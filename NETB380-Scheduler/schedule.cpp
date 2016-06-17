@@ -229,14 +229,3 @@ void Schedule::professor_preference_deduction(int day)
         fitness -= 1;
     }
 }
-
-void Schedule::mutate()
-{
-
-
-}
-void Schedule::keep_the_best()
-{
-
-
-}
