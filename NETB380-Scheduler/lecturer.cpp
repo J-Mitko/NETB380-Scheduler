@@ -23,6 +23,6 @@ string Lecturer::get_fullname() const {
     return firstname + ' ' + lastname;
 }
 
-vector<int> Lecturer::get_preference() const {
-    return preference;
+int Lecturer::get_preference(int day) const {
+    return preference.at(day);
 }

@@ -11,7 +11,7 @@
 using namespace std;
 
 int main() {
-    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1");
+    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres pass=student1");
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
         puts(PQerrorMessage(conn));
@@ -25,13 +25,13 @@ int main() {
         return 0;
     }
     CourseDB course_db(result);
-
+/*
     Schedule schedule(course_db);
     schedule.randomize_schedule();
     puts("Printing schedule...");
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
-
+*/
     PQclear(result);
     PQfinish(conn);
     return 0;

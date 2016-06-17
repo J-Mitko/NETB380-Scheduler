@@ -21,7 +21,7 @@ public:
     string get_firstname() const;
     string get_lastname() const;
     string get_fullname() const;
-    vector<int> get_preference() const;
+    int get_preference(int day) const;
 };
 
 #endif // LECTURER_H
