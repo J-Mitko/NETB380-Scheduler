@@ -14,7 +14,8 @@ int THURSDAY = 3;
 int FRIDAY = 4;
 int SATURDAY= 5;
 
-const int MAX_FITNESS = 600;
+const int MAX_FITNESS = 660;
+const int MAX_DAY_FITNESS = 110;
 
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
@@ -23,6 +24,13 @@ Schedule::Schedule(CourseDB course_db,Lecturer lectures) {
 	timeslots.resize(TIMESLOTS_PER_DAY * NUM_WORKING_DAYS, 0);
 	this->course_db = course_db;
     this->professors = lectures;
+
+
+    fitness = MAX_FITNESS;
+    for(int i = 0;i<5;i++)
+    {
+        day_fitness[i] = MAX_DAY_FITNESS;
+    }
 }
 
 int Schedule::get_course_id_at(int day, int timeslot) {
@@ -123,8 +131,6 @@ void Schedule::fitness_calculation()
 {
     int current_course_id;
 
-    fitness = MAX_FITNESS;
-
     for(int day = 0;day<6;day++)
     {
         for(int i = 0;i<timeslots.size();i++)
@@ -132,6 +138,7 @@ void Schedule::fitness_calculation()
             current_course_id = get_course_id_at(day,i);
 
             //check semester <= 1
+            //-70
             if( course_db.get_course_with_id(current_course_id)->get_semester() <= 1)
             {
                 //check if it is a theory_course or lab course
@@ -146,7 +153,8 @@ void Schedule::fitness_calculation()
                     // lab before theory
                     else
                     {
-                        fitness -= 25;
+                        fitness -= 20;
+                        day_fitness[day] -=20;
                         professor_preference_deduction(day);//check professor preference vector
                     }
                 }
@@ -154,7 +162,8 @@ void Schedule::fitness_calculation()
                 {
                     if(is_lab_before_theory(day,i))// lab before theory
                     {
-                        fitness -= 25;
+                        fitness -= 20;
+                        day_fitness[day] -=20;
                         professor_preference_deduction(day);//check professor preference vector
                     }
 
@@ -167,6 +176,7 @@ void Schedule::fitness_calculation()
             else
             {
                 fitness -= 50;
+                day_fitness[day] -=50;
 
                 //check if it is a theory_course or lab course
                 if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
@@ -180,7 +190,8 @@ void Schedule::fitness_calculation()
                     // lab before theory
                     else
                     {
-                        fitness -= 25;
+                        fitness -= 20;
+                        day_fitness[day] -=20;
                         professor_preference_deduction(day);//check professor preference vector
                     }
                 }
@@ -188,7 +199,8 @@ void Schedule::fitness_calculation()
                 {
                     if(is_lab_before_theory(day,i))// lab before theory
                     {
-                        fitness -= 25;
+                        fitness -= 20;
+                        day_fitness[day] -=20;
                         professor_preference_deduction(day);//check professor preference vector
                     }
                     else
@@ -204,28 +216,44 @@ void Schedule::fitness_calculation()
 
 void Schedule::professor_preference_deduction(int day)
 {
+    //-40
     if(professors.get_preference(day) == 0 )
     {
-        fitness -= 15;
+        fitness -= 14;
+        day_fitness[day] -=14;
     }
     else if(professors.get_preference(day) == 1 )
     {
         fitness -= 10;
+        day_fitness[day] -=10;
     }
     else if(professors.get_preference(day) == 2 )
     {
         fitness -= 7;
+        day_fitness[day] -=7;
     }
     else if(professors.get_preference(day) == 3 )
     {
         fitness -= 5;
+        day_fitness[day] -=5;
     }
     else if(professors.get_preference(day) == 4 )
     {
         fitness -= 3;
+        day_fitness[day] -=3;
     }
     else if(professors.get_preference(day) == 5 )
     {
         fitness -= 1;
+        day_fitness[day] -=1;
     }
+}
+
+int Schedule::get_fitness()
+{
+    return fitness;
+}
+int Schedule::get_day_fitness(int day)
+{
+    return day_fitness[day];
 }

@@ -24,6 +24,7 @@ private:
     static int rng(int i);
 
     int fitness;
+    int day_fitness[6];
 
 public:
     Schedule(CourseDB course_db,Lecturer lectures);
@@ -38,6 +39,8 @@ public:
 
     void fitness_calculation();
     void professor_preference_deduction(int day);
+    int get_fitness();
+    int get_day_fitness(int day);
 
     void print_schedule();
 };

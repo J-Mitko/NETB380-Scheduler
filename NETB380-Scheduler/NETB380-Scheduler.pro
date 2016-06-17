@@ -24,4 +24,6 @@ HEADERS += \
     population.h
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += LIBPQ_PATH -lpq
+QMAKE_LFLAGS += -L D:\PSQL\lib -lpq
+#message($LIBPQ_PATH)
+
