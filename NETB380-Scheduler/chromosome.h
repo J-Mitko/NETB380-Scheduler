@@ -24,9 +24,9 @@ public:
     Chromosome();
     ~Chromosome();
 
-    void selector();
+    void selector(); //TODO
     void mutate();
-    void elitest();
+    //void elitest();
 
     void crossover();//
     void Xover(int index,int timeslot_1,int timeslot_2);

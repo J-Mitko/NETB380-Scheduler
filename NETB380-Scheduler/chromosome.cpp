@@ -17,54 +17,8 @@ Chromosome::Chromosome()
 Chromosome::~Chromosome()
 {}
 
-void Chromosome::selector() //SEGMENT FAULT
-{
-    int total_fitness;
-    double a = 0.0;
-    double b = 1.0;
-    double x;
-
-    //  Find the total fitness of the population.
-    for(int i = 0;i < SIZE; i++)
-    {
-        total_fitness += chromosomes[i].get_fitness();
-    }
-    //  Calculate the relative fitness of each member.
-    for(int i = 0; i < SIZE; i++)
-    {
-        chromosomes[i].set_relative_fitness( chromosomes[i].get_fitness() / total_fitness );
-    }
-    //  Calculate the cumulative fitness.
-    for(int i = 1; i < SIZE; i++)
-    {
-        chromosomes[i].set_cumulative_fitness( chromosomes[i-1].get_cumulative_fitness() + chromosomes[i].get_relative_fitness() );
-    }
-    //  Select survivors using cumulative fitness.
-    for(int i = 0; i < SIZE - 1; i++)
-    {
-        x = rng_ab(a,b);
-        if( x < chromosomes[0].get_cumulative_fitness())
-        {
-           newSequence[i] = chromosomes[0];
-        }
-        else
-        {
-            for(int j = 0; j< SIZE; j++)
-            {
-                if( chromosomes[j].get_cumulative_fitness() <= x && x < chromosomes[j+1].get_cumulative_fitness())
-                {
-                    newSequence[i] = chromosomes[j+1];
-                }
-            }
-        }
-    }
-    //  Overwrite the old population with the new one.
-    for(int i = 0; i < SIZE; i++)
-    {
-        chromosomes[i] = newSequence[i];
-    }
-
-}
+void Chromosome::selector()
+{}
 
 void Chromosome::mutate()
 {
