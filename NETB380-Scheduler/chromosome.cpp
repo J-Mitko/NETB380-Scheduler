@@ -12,8 +12,8 @@ Chromosome::Chromosome(Schedule init_schedule)
     {
         init_schedule.randomize_schedule();
         chromosomes.push_back(init_schedule);
-        //call for first time fitness_calculation()
-        chromosomes[i].fitness_calculation();
+
+        chromosomes[i].fitness_calculation();//call for first time fitness_calculation()
     }
 }
 

@@ -20,7 +20,7 @@ LecturerDB::LecturerDB(PGresult* result)
             int id;
             string firstname;
             string lastname;
-            string pref;
+
             vector<int> pref_vector;
 
             for (int col = 0; col < cols; col++)
@@ -35,16 +35,21 @@ LecturerDB::LecturerDB(PGresult* result)
                     lastname = PQgetvalue(result, row, col);
                 }
                 if (col == 3) {
-                    pref = PQgetvalue(result, row, col);
-                    if(pref.length() < 6)
+                    string pref = PQgetvalue(result, row, col);
+                    if(pref.length() > 0)
                     {
                         for(int i = 0; i < pref.length();i++)
                         {
-                            pref_vector[i] = int(pref[i]);
+                            if(isdigit(pref[i]))
+                            {
+                                pref_vector.push_back((int)pref[i]);
+                                cout<< pref_vector[i]<<endl;
+                            }
                         }
                     }
                 }
             }
+
             Lecturer professor(id,firstname,lastname,pref_vector);
             id_to_professor_map.insert(pair<int, Lecturer>(professor.get_id(),professor));
         }

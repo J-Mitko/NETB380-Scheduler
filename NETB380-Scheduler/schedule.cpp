@@ -24,7 +24,9 @@ Schedule::Schedule()
 {}
 
 Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
-	timeslots.resize(TIMESLOTS_PER_DAY * NUM_WORKING_DAYS, 0);
+    srand(unsigned(time(0)));
+
+    timeslots.resize(TIMESLOTS_PER_DAY * NUM_WORKING_DAYS, 0);
 	this->course_db = course_db;
     this->professors_db = lectures_db;
 
@@ -53,7 +55,6 @@ int Schedule::rng(int i) {
 }
 
 void Schedule::randomize_schedule() {
-	srand(unsigned(time(0)));
 	vector<int> ids = course_db.get_all_course_ids();
 	ids.resize(36, 0);
 	timeslots = ids;

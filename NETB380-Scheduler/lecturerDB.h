@@ -3,8 +3,11 @@
 
 #include <map>
 #include <vector>
+#include <string>
+#include <cstring>
 #include "lecturer.h"
 #include "include/libpq-fe.h"
+#include <iostream>
 
 using namespace std;
 

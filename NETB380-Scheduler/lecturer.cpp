@@ -26,5 +26,6 @@ string Lecturer::get_fullname() const {
 }
 
 int Lecturer::get_preference(int day) const {
-    return preference.at(day);
+    cout<< preference[day]<<endl;
+    return preference[day];
 }
