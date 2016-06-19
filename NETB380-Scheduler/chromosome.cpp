@@ -40,7 +40,7 @@ void Chromosome::selector() //SEGMENT FAULT
         chromosomes[i].set_cumulative_fitness( chromosomes[i-1].get_cumulative_fitness() + chromosomes[i].get_relative_fitness() );
     }
     //  Select survivors using cumulative fitness.
-    for(int i = 0; i < SIZE; i++)
+    for(int i = 0; i < SIZE - 1; i++)
     {
         x = rng_ab(a,b);
         if( x < chromosomes[0].get_cumulative_fitness())

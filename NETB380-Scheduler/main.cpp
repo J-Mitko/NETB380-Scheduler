@@ -16,7 +16,7 @@ using namespace std;
 
 int main() {
     //PGconn *conn = PQconnectdb("dbname=scheduler scheduler host=127.0.0.1 user=postgres password=admin");
-    PGconn *conn = PQconnectdb("dbname=courseinfo scheduler host=127.0.0.1 user=postgres password=student1");
+    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres password=student1");
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
         puts(PQerrorMessage(conn));
