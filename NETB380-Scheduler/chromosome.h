@@ -4,6 +4,7 @@
 #include <vector>
 #include <ctime>
 #include <stdlib.h>
+#include <iostream>
 #include "schedule.h"
 
 extern int SIZE;
@@ -16,12 +17,14 @@ class Chromosome
 {
 private:
     vector <Schedule> chromosomes;
-    vector <Schedule> newSequence;
+    vector <Schedule> prevSequence;
+
+    Schedule best_chromosome;
 
     static int rng_i(int i);
     static double rng_ab(double a, double b);
 public:
-    Chromosome();
+    Chromosome(Schedule init_schedule);
     ~Chromosome();
 
     void selector(); //TODO
@@ -32,6 +35,8 @@ public:
     void Xover(int index,int timeslot_1,int timeslot_2);
 
     void evaluate();
+    void report(int generation);
+    void print();// print best_cromosome
 
 };
 

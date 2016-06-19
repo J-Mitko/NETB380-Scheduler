@@ -20,6 +20,9 @@ const int MAX_DAY_FITNESS = 110;
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
 
+Schedule::Schedule()
+{}
+
 Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
 	timeslots.resize(TIMESLOTS_PER_DAY * NUM_WORKING_DAYS, 0);
 	this->course_db = course_db;

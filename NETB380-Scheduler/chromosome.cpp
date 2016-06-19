@@ -5,12 +5,15 @@ int SIZE = 10;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
-Chromosome::Chromosome()
+Chromosome::Chromosome(Schedule init_schedule)
 {
     srand(unsigned(time(0)));
     for(int i = 0;i< SIZE;i++)
     {
-        //chromosomes.push_back(init_schedule);
+        init_schedule.randomize_schedule();
+        chromosomes.push_back(init_schedule);
+        //call for first time fitness_calculation()
+        chromosomes[i].fitness_calculation();
     }
 }
 
@@ -89,8 +92,85 @@ void Chromosome::Xover(int index, int timeslot_1, int timeslot_2)
     chromosomes[index].swap_timeslots(timeslot_1,timeslot_2);
 }
 
+void Chromosome::evaluate()
+{
+    int best_fitness = 0;
+    int best_chromosome_index;
 
+    for(int i = 0;i<SIZE;i++)
+    {
+        if(best_fitness < chromosomes[i].get_fitness())
+        {
+            best_fitness = chromosomes[i].get_fitness();
+            best_chromosome_index = i;
+        }
+    }
 
+    if(prevSequence.empty())
+    {
+        for(int i = 0;i < SIZE;i++)
+        {
+            prevSequence.push_back(chromosomes[i]);//copy chromosomes
+        }
+    }
+    else
+    {
+        for(int i = 0;i < SIZE;i++)
+        {
+            if(chromosomes[i].get_fitness() < prevSequence[i].get_fitness())
+            {
+                if(best_fitness < prevSequence[i].get_fitness())
+                {
+                    chromosomes[i] = prevSequence[i];
+                    best_fitness = prevSequence[i].get_fitness();
+                    best_chromosome_index = i;
+                }
+                else
+                {
+                    chromosomes[i] = prevSequence[i];
+                }
+            }
+            else
+            {
+                prevSequence[i] = chromosomes[i];
+            }
+        }
+
+        best_chromosome = chromosomes[best_chromosome_index];
+    }
+}
+
+void Chromosome::report(int generation)
+{
+    double avg;
+    int best_val = 0;
+    int sum;
+    if ( generation == 0 )
+    {
+        cout << "\n";
+        cout << "  Generation       Best            Average  \n";
+        cout << "  number           value           fitness  \n";
+        cout << "\n";
+    }
+
+    for (int i=0; i<SIZE; i++)
+    {
+        sum += chromosomes[i].get_fitness();
+        if(best_val < chromosomes[i].get_fitness())
+        {
+            best_val = chromosomes[i].get_fitness();
+        }
+    }
+
+    avg = sum / (double)SIZE;
+
+    cout << "  " << generation << "                 " << best_val << "                "<< avg <<"\n";
+}
+
+void Chromosome::print()
+{
+    best_chromosome.print_schedule();
+}
 int Chromosome::rng_i(int i)
 {
     return rand() % i + 1;

@@ -14,6 +14,8 @@
 
 using namespace std;
 
+const int MAXGENS = 10;
+
 int main() {
     PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres password=admin");
 
@@ -46,7 +48,17 @@ int main() {
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
 
-    //Chromosome pop(schedule);
+    //-------------TEST----------------
+    Chromosome test(schedule);
+    for(int i = 0;i< MAXGENS;i++)
+    {
+        test.crossover();
+        test.mutate();
+        test.evaluate();
+        test.report(i);
+    }
+    test.print();
+    //---------------------------------
 
     PQclear(result);
     PQfinish(conn);

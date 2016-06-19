@@ -29,6 +29,7 @@ private:
     int day_fitness[6];
 
 public:
+    Schedule();
     Schedule(CourseDB course_db,LecturerDB lectures_db);
     int get_course_id_at(int day, int timeslot);
     void set_course_id_at(int day, int timeslot, int course_id);
