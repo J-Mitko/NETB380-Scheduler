@@ -9,7 +9,7 @@
 #include "schedule.h"
 #include "courseDB.h"
 #include "lecturerDB.h"
-#include "population.h"
+#include "chromosome.h"
 
 
 using namespace std;
@@ -46,7 +46,7 @@ int main() {
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
 
-    Population pop(schedule);
+    //Chromosome pop(schedule);
 
     PQclear(result);
     PQfinish(conn);
