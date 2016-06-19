@@ -1,5 +1,5 @@
-#ifndef GENOTYPE_H
-#define GENOTYPE_H
+#ifndef CHROMOSOME_H
+#define CHROMOSOME_H
 
 #include <vector>
 #include <ctime>
@@ -10,7 +10,7 @@ extern int MAXGENS;
 
 using namespace std;
 
-class Genotype
+class Chromosome
 {
 private:
     static int rng_i(int i);
@@ -18,8 +18,8 @@ private:
 public:
     vector <Schedule> gene;
 
-    Genotype(Schedule init_schedule);
-    ~Genotype();
+    Chromosome(Schedule init_schedule);
+    ~Chromosome();
 };
 
 #endif // POPULATION_H

@@ -1,18 +1,18 @@
-#include "genotype.h"
+#include "chromosome.h"
 #include <math.h>
 
 int MAXGENS = 10;
 
-Genotype::Genotype(Schedule init_schedule)
+Chromosome::Chromosome(Schedule init_schedule)
 {
     srand(unsigned(time(0)));
 
 }
 
-Genotype::~Genotype()
+Chromosome::~Chromosome()
 {}
 
-void Genotype::selector()
+void Chromosome::selector()
 {
     int total_fitness;
     double a = 0.0;
@@ -61,7 +61,7 @@ void Genotype::selector()
 
 }
 
-void Genotype::mutate()
+void Chromosome::mutate()
 {
     int lowest_fitness;
     int current_fitness;
@@ -91,11 +91,11 @@ void Genotype::mutate()
 
 }
 
-int Genotype::rng_i(int i)
+int Chromosome::rng_i(int i)
 {
     return rand() % i + 1;
 }
-double Genotype::rng_ab(double a, double b)
+double Chromosome::rng_ab(double a, double b)
 {
     return fmod((double)rand(), a + b);
 }
