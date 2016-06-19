@@ -26,6 +26,7 @@ HEADERS += \
     chromosome.h
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += -L C:\PostgreSQL\9.5\bin -lpq
+QMAKE_LFLAGS += -L D:\NETB\psql\bin -lpq # jMITKO'S
+#QMAKE_LFLAGS += -L MILEN -lpq
 #message($LIBPQ_PATH)
 
