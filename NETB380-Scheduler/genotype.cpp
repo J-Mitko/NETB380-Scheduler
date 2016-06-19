@@ -1,10 +1,7 @@
 #include "genotype.h"
 #include <math.h>
 
-int POPULATION_SIZE = 10;
 int MAXGENS = 10;
-int NVARS = 6;// FOR SIX DAYS
-int MUTATION = 2;// mutation chance 1-10
 
 Genotype::Genotype(Schedule init_schedule)
 {
@@ -14,12 +11,6 @@ Genotype::Genotype(Schedule init_schedule)
 
 Genotype::~Genotype()
 {}
-
-
-void Genotype::elitist()
-{
-
-}
 
 void Genotype::selector()
 {
