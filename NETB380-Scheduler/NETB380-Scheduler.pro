@@ -14,16 +14,20 @@ SOURCES += main.cpp \
     course.cpp \
     schedule.cpp \
     courseDB.cpp \
-    population.cpp \
-    lecturerDB.cpp
+    lecturerDB.cpp \
+    genotype.cpp \
+    genepool.cpp \
+    population.cpp
 
 HEADERS += \
     course.h \
     schedule.h \
     courseDB.h \
-    population.h \
     lecturerDB.h \
-    lecturer.h
+    lecturer.h \
+    genotype.h \
+    genepool.h \
+    population.h
 
 #QMAKE_CXXFLAGS += -lpq
 QMAKE_LFLAGS += -L C:\PostgreSQL\9.5\bin -lpq
