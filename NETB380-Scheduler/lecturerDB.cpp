@@ -42,8 +42,7 @@ LecturerDB::LecturerDB(PGresult* result)
                         {
                             if(isdigit(pref[i]))
                             {
-                                pref_vector.push_back((int)pref[i]);
-                                cout<< pref_vector[i]<<endl;
+                                pref_vector.push_back(int(pref[i]-48));
                             }
                         }
                     }
