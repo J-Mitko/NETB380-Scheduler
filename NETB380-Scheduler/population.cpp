@@ -1,4 +1,5 @@
 #include "population.h"
+#include <vector>
 #include <math.h>
 
 int POPULATION_SIZE = 10;
@@ -6,12 +7,12 @@ int MAXGENS = 100;
 int NVARS = 6;// FOR SIX DAYS
 int MUTATION = 2;// mutation chance 1-10
 
-Population::Population(Schedule init_schedule)
+Population::Population(Schedule& init_schedule)
 {
     srand(unsigned(time(0)));
     for(int i = 0;i< POPULATION_SIZE;i++)
     {
-        this->population[i] = init_schedule;
+        population.push_back(init_schedule);
     }
 }
 

@@ -23,7 +23,7 @@ private:
     static int rng_i(int i);
     static double rng_ab(double a, double b);
 public:
-    Population(Schedule init_schedule);
+    Population(Schedule &init_schedule);
     ~Population();
 
     void elitist();

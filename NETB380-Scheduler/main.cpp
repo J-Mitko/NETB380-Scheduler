@@ -9,6 +9,8 @@
 #include "schedule.h"
 #include "courseDB.h"
 #include "lecturerDB.h"
+#include "population.h"
+
 
 using namespace std;
 
@@ -43,6 +45,8 @@ int main() {
     puts("Printing schedule...");
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
+
+    Population pop(schedule);
 
     PQclear(result);
     PQfinish(conn);
