@@ -96,49 +96,43 @@ void Chromosome::mutate()
 
 }
 
-void Chromosome::crossover()
+void Chromosome::crossover() // TEST!!!
 {
     const double a = 0.0;
     const double b = 1.0;
     int timeslot_1 = 0;
-    int timeslot_2;
-    int day_1 = 0;
-    int day_2;
+    int timeslot_2 = 1;
+    int index = 0;//chomosome index
 
     double x;
 
     for(int i = 0;i<SIZE;i++)
     {
         x = rng_ab(a,b);
-        if(x < PXOVER)
-        {
+        index = rng_i(SIZE);//get random index
 
-            day_1++;
-            if(timeslot_1 < 6 && timeslot_2 < 6 && day_1 < 6 && day_2 < 6)
+        if(x < PXOVER)//time slot < 36
+        {
+            if(timeslot_1 < 36 && timeslot_2 < 36)
             {
-                if(day_1 % 2 == 0)
+                timeslot_1++;
+                if(timeslot_1 % 2 == 0)
                 {
-                    timeslot_1++;
-                    if(timeslot_1 % 2 == 0)
-                    {
-                        Xover(i,day_1,timeslot_1,day_2,timeslot_2);
-                    }
-                    else
-                    {
-                        //timeslot_2 = i;
-                    }
+                    Xover(index,timeslot_1,timeslot_2);
                 }
                 else
                 {
-                    //day_2 =i;
+                    timeslot_2++;
                 }
             }
+            else
+                break;
         }
     }
 }
-void Chromosome::Xover(int index, int day_1, int timeslot_1, int day_2, int timeslot_2)
+void Chromosome::Xover(int index, int timeslot_1, int timeslot_2)
 {
-
+    chromosomes[index].swap_timeslots(timeslot_1,timeslot_2);
 }
 
 

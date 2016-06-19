@@ -29,7 +29,7 @@ public:
     void elitest();
 
     void crossover();//
-    void Xover(int index, int day_1,int timeslot_1, int day_2,int timeslot_2);
+    void Xover(int index,int timeslot_1,int timeslot_2);
 
     void evaluate();
 

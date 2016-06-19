@@ -35,6 +35,7 @@ public:
 
     void randomize_schedule();
     void swap_timeslots(int day1, int timeslot1, int day2, int timeslot2);
+    void swap_timeslots(int timeslot1, int timeslot2);
 
     bool is_theory_before_lab(int day, int timeslot);
     bool is_lab_before_theory(int day, int timeslot);

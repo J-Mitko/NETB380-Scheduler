@@ -65,6 +65,13 @@ void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) 
 	timeslots[index2] = temp_course_id;
 }
 
+void Schedule::swap_timeslots(int timeslot1, int timeslot2)
+{
+    int temp_course_id = timeslots[timeslot1];
+    timeslots[timeslot1] = timeslots[timeslot2];
+    timeslots[timeslot2] = temp_course_id;
+}
+
 void Schedule::print_schedule() {
 	for (int i = 0; i < NUM_WORKING_DAYS * TIMESLOTS_PER_DAY; i++) {
 		if (i % TIMESLOTS_PER_DAY == 0) {
