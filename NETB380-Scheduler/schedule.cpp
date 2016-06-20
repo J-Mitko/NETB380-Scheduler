@@ -72,7 +72,6 @@ void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) 
 void Schedule::swap_timeslots(int timeslot1, int timeslot2)
 {
     int temp_course_id = timeslots[timeslot1];
-    int temp_2 = timeslots[timeslot2];
     timeslots[timeslot1] = timeslots[timeslot2];
     timeslots[timeslot2] = temp_course_id;
 }
@@ -143,6 +142,7 @@ bool Schedule::is_lab_before_theory(int day, int timeslot)
 void Schedule::fitness_calculation()
 {
     int current_course_id;
+    fitness = MAX_FITNESS;// RESET FITNESS VALUE
 
     for(int day = 0;day<6;day++)
     {

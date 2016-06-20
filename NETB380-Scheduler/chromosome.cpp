@@ -32,7 +32,7 @@ void Chromosome::mutate()
 
     lowest_fitness = chromosomes[0].get_fitness();
 
-    for(int mut = 0; mut <= SIZE * 20 /100; mut++)// perform only on 20% of the population
+    for(int mut = 0; mut <= SIZE * 20/100; mut++)// perform only on 20% of the population
     {
 
         for(int i = 0;i < SIZE; i++)// finds leakest in the one
@@ -50,6 +50,9 @@ void Chromosome::mutate()
             chromosomes[leakest].randomize_schedule();
         }
     }
+
+    for(int i = 0; i<SIZE; i++)
+        chromosomes[i].fitness_calculation();
 
 }
 
@@ -88,6 +91,9 @@ void Chromosome::crossover() // TEST!!!
             }
         }
     }
+
+    for(int i = 0; i<SIZE; i++)
+        chromosomes[i].fitness_calculation();
 }
 void Chromosome::Xover(int index, int timeslot_1, int timeslot_2)
 {
