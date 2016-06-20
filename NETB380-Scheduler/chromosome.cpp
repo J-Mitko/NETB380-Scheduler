@@ -55,8 +55,8 @@ void Chromosome::mutate()
 
 void Chromosome::crossover() // TEST!!!
 {
-    const double a = 0.0;
-    const double b = 1.0;
+    //const double a = 0.0;
+    //const double b = 1.0;
     int timeslot_1 = 0;
     int timeslot_2 = 1;
     int index = 0;//chomosome index
@@ -65,7 +65,7 @@ void Chromosome::crossover() // TEST!!!
 
     for(int i = 0;i<SIZE;i++)
     {
-        x = rng_ab(a,b);
+        x = rng_ab();
         index = rng_i(SIZE);//get random index
 
         if(x < PXOVER)//time slot < 36
@@ -175,9 +175,10 @@ int Chromosome::rng_i(int i)
 {
     return rand() % i + 1;
 }
-double Chromosome::rng_ab(double a, double b)
+double Chromosome::rng_ab()
 {
-    return fmod((double)rand(), a + b);
+    double rng = (double)rand() / RAND_MAX;
+    return rng;
 }
 
 

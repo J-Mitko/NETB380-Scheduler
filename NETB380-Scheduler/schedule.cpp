@@ -14,8 +14,8 @@ int THURSDAY = 3;
 int FRIDAY = 4;
 int SATURDAY= 5;
 
-const int MAX_FITNESS = 660;
-const int MAX_DAY_FITNESS = 110;
+const int MAX_FITNESS = 3900;
+const int MAX_DAY_FITNESS = 660;
 
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
@@ -34,7 +34,7 @@ Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
     fitness = MAX_FITNESS;
     relative_fitness = 0;
     cumulative_fitness = 0;
-    for(int i = 0;i<5;i++)
+    for(int i = 0;i<6;i++)
     {
         day_fitness[i] = MAX_DAY_FITNESS;
     }
@@ -146,82 +146,85 @@ void Schedule::fitness_calculation()
 
     for(int day = 0;day<6;day++)
     {
-        for(int i = 0;i<timeslots.size();i++)
+        for(int i = 0;i<6;i++)//6 timeslots a day
+        //for(int i = 0;i<timeslots.size();i++)
         {
             current_course_id = get_course_id_at(day,i);
-
-            //check semester <= 1
-            //-70
-            if( course_db.get_course_with_id(current_course_id)->get_semester() <= 1)
+            if(current_course_id != 0) // not dummy course
             {
-                //check if it is a theory_course or lab course
-                if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
+                //check semester <= 1
+                //-120
+                if( course_db.get_course_with_id(current_course_id)->get_semester() <= 1)
                 {
-                    //THEORY COURSE
-                    //check if theory before lab
-                    if(is_theory_before_lab(day,i))
+                    //check if it is a theory_course or lab course
+                    if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
                     {
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        //THEORY COURSE
+                        //check if theory before lab
+                        if(is_theory_before_lab(day,i))
+                        {
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
+                        // lab before theory
+                        else
+                        {
+                            fitness -= 120;
+                            day_fitness[day] -=120;
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
                     }
-                    // lab before theory
-                    else
+                    else // LAB Course
                     {
-                        fitness -= 20;
-                        day_fitness[day] -=20;
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        if(is_lab_before_theory(day,i))// lab before theory
+                        {
+                            fitness -= 120;
+                            day_fitness[day] -=120;
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
+
+                        else
+                        {
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
                     }
                 }
-                else // LAB Course
-                {
-                    if(is_lab_before_theory(day,i))// lab before theory
+                else
+                {//-420
+                    fitness -= 300;
+                    day_fitness[day] -=300;
+
+                    //check if it is a theory_course or lab course
+                    if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
                     {
-                        fitness -= 20;
-                        day_fitness[day] -=20;
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        //THEORY COURSE
+                        //check if theory before lab
+                        if(is_theory_before_lab(day,i))
+                        {
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
+                        // lab before theory
+                        else
+                        {
+                            fitness -= 120;
+                            day_fitness[day] -=120;
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
+                    }
+                    else // LAB Course
+                    {
+                        if(is_lab_before_theory(day,i))// lab before theory
+                        {
+                            fitness -= 120;
+                            day_fitness[day] -=120;
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
+                        else
+                        {
+                            professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
+                        }
                     }
 
-                    else
-                    {
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
-                    }
                 }
-            }
-            else
-            {
-                fitness -= 50;
-                day_fitness[day] -=50;
-
-                //check if it is a theory_course or lab course
-                if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
-                {
-                    //THEORY COURSE
-                    //check if theory before lab
-                    if(is_theory_before_lab(day,i))
-                    {
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
-                    }
-                    // lab before theory
-                    else
-                    {
-                        fitness -= 20;
-                        day_fitness[day] -=20;
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
-                    }
-                }
-                else // LAB Course
-                {
-                    if(is_lab_before_theory(day,i))// lab before theory
-                    {
-                        fitness -= 20;
-                        day_fitness[day] -=20;
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
-                    }
-                    else
-                    {
-                        professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
-                    }
-                }
-
             }
         }
     }
@@ -229,31 +232,31 @@ void Schedule::fitness_calculation()
 
 void Schedule::professor_preference_deduction(int id, int day)
 {
-    //-40
+    //-25*6 = 150
     if(professors_db.get_lector_with_id(id)->get_preference(day) == 0 )
-    {
-        fitness -= 14;
-        day_fitness[day] -=14;
-    }
-    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 1 )
     {
         fitness -= 10;
         day_fitness[day] -=10;
     }
-    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 2 )
-    {
-        fitness -= 7;
-        day_fitness[day] -=7;
-    }
-    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 3 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 1 )
     {
         fitness -= 5;
         day_fitness[day] -=5;
     }
-    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 4 )
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 2 )
+    {
+        fitness -= 4;
+        day_fitness[day] -=4;
+    }
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 3 )
     {
         fitness -= 3;
         day_fitness[day] -=3;
+    }
+    else if(professors_db.get_lector_with_id(id)->get_preference(day) == 4 )
+    {
+        fitness -= 2;
+        day_fitness[day] -=2;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 5 )
     {

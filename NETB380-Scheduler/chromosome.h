@@ -5,6 +5,8 @@
 #include <ctime>
 #include <stdlib.h>
 #include <iostream>
+#include <random>
+
 #include "schedule.h"
 
 extern int SIZE;
@@ -22,7 +24,7 @@ private:
     Schedule best_chromosome;
 
     static int rng_i(int i);
-    static double rng_ab(double a, double b);
+    static double rng_ab();
 public:
     Chromosome(Schedule init_schedule);
     ~Chromosome();
