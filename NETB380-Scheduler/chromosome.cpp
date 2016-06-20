@@ -55,8 +55,6 @@ void Chromosome::mutate()
 
 void Chromosome::crossover() // TEST!!!
 {
-    //const double a = 0.0;
-    //const double b = 1.0;
     int timeslot_1 = 0;
     int timeslot_2 = 1;
     int index = 0;//chomosome index

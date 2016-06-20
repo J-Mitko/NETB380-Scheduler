@@ -119,7 +119,6 @@ bool Schedule::is_theory_before_lab(int day, int timeslot) {
 
 
 // it will return weather or not it is before the theory
-// FUTURE HEADAKES
 bool Schedule::is_lab_before_theory(int day, int timeslot)
 {
     int index = TIMESLOTS_PER_DAY * day + timeslot;
@@ -146,10 +145,9 @@ void Schedule::fitness_calculation()
 
     for(int day = 0;day<6;day++)
     {
-        for(int i = 0;i<6;i++)//6 timeslots a day
-        //for(int i = 0;i<timeslots.size();i++)
+        for(int timeslot = 0;timeslot<6;timeslot++)//6 timeslots a day
         {
-            current_course_id = get_course_id_at(day,i);
+            current_course_id = get_course_id_at(day,timeslot);
             if(current_course_id != 0) // not dummy course
             {
                 //check semester <= 1
@@ -161,7 +159,7 @@ void Schedule::fitness_calculation()
                     {
                         //THEORY COURSE
                         //check if theory before lab
-                        if(is_theory_before_lab(day,i))
+                        if(is_theory_before_lab(day,timeslot))
                         {
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
@@ -175,7 +173,7 @@ void Schedule::fitness_calculation()
                     }
                     else // LAB Course
                     {
-                        if(is_lab_before_theory(day,i))// lab before theory
+                        if(is_lab_before_theory(day,timeslot))// lab before theory
                         {
                             fitness -= 120;
                             day_fitness[day] -=120;
@@ -198,7 +196,7 @@ void Schedule::fitness_calculation()
                     {
                         //THEORY COURSE
                         //check if theory before lab
-                        if(is_theory_before_lab(day,i))
+                        if(is_theory_before_lab(day,timeslot))
                         {
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
@@ -212,7 +210,7 @@ void Schedule::fitness_calculation()
                     }
                     else // LAB Course
                     {
-                        if(is_lab_before_theory(day,i))// lab before theory
+                        if(is_lab_before_theory(day,timeslot))// lab before theory
                         {
                             fitness -= 120;
                             day_fitness[day] -=120;
