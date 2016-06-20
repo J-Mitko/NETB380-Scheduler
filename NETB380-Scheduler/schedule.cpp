@@ -72,6 +72,7 @@ void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) 
 void Schedule::swap_timeslots(int timeslot1, int timeslot2)
 {
     int temp_course_id = timeslots[timeslot1];
+    int temp_2 = timeslots[timeslot2];
     timeslots[timeslot1] = timeslots[timeslot2];
     timeslots[timeslot2] = temp_course_id;
 }

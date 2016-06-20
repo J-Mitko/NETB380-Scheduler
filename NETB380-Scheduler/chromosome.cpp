@@ -55,20 +55,20 @@ void Chromosome::mutate()
 
 void Chromosome::crossover() // TEST!!!
 {
-    int timeslot_1 = 0;
-    int timeslot_2 = 1;
+    int timeslot_1 = -1;
+    int timeslot_2 = 36;
     int index = 0;//chomosome index
 
     double x;
 
-    for(int i = 0;i<SIZE;i++)
+    for(int i = 0;i<SIZE;i++)//needs a more chromosomes to work properly
     {
         x = rng_ab();
-        index = rng_i(SIZE);//get random index
+        index = rng_i(SIZE-1);//get random index
 
         if(x < PXOVER)//time slot < 36
         {
-            if(timeslot_1 < 36 && timeslot_2 < 36)
+            if(timeslot_1 <= 35 && timeslot_2 >= 0)
             {
                 timeslot_1++;
                 if(timeslot_1 % 2 == 0)
@@ -77,11 +77,15 @@ void Chromosome::crossover() // TEST!!!
                 }
                 else
                 {
-                    timeslot_2++;
+                    timeslot_2--;
                 }
             }
             else
-                break;
+            {
+                int swap = timeslot_1;
+                timeslot_1 = timeslot_2;
+                timeslot_2 = swap;
+            }
         }
     }
 }

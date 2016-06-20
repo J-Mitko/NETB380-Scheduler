@@ -53,10 +53,13 @@ int main() {
     for(int i = 0;i< MAXGENS;i++)
     {
         test.crossover();
-        test.mutate();
+        //test.mutate();
         test.evaluate();
         test.report(i);
+
     }
+
+    cout << "________________BEST SCHEDULE________________" <<endl;
     test.print();
     //---------------------------------
 
