@@ -157,7 +157,7 @@ bool Schedule::is_lab_before_theory(unsigned int day, unsigned int timeslot)
 
 void Schedule::fitness_calculation()
 {
-    int current_course_id;
+    unsigned int current_course_id;
     fitness = MAX_FITNESS;// RESET FITNESS VALUE
 
     for(int day = 0;day<6;day++)

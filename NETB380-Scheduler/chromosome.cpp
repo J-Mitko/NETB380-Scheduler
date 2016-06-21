@@ -1,20 +1,21 @@
 #include "chromosome.h"
 #include <math.h>
 
-int SIZE_1 = 10;
+int GENEPOOL = 10;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
 Chromosome::Chromosome(Schedule init_schedule)
 {
     srand(unsigned(time(0)));
-    for(int i = 0;i< SIZE_1;i++)
-    {
+    int i = 0;
+//    for(int i = 0;i< GENEPOOL;i++)
+//    {
         init_schedule.randomize_schedule();
         chromosomes.push_back(init_schedule);
 
         chromosomes[i].fitness_calculation();//call for first time fitness_calculation()
-    }
+//    }
 }
 
 Chromosome::~Chromosome()
@@ -31,10 +32,10 @@ void Chromosome::mutate()
     int x;
 
     lowest_fitness = chromosomes[0].get_fitness();
-    for(int mut = 0; mut <= SIZE_1 * 20 /100; mut++)// perform only on 20% of the population
+    for(int mut = 0; mut <= GENEPOOL * 20 /100; mut++)// perform only on 20% of the population
     {
 
-        for(int i = 0;i < SIZE_1; i++)// finds leakest in the one
+        for(int i = 0;i < GENEPOOL; i++)// finds leakest in the one
         {
             current_fitness = chromosomes[i].get_fitness();
             if(current_fitness < lowest_fitness)
@@ -50,7 +51,7 @@ void Chromosome::mutate()
         }
     }
 
-    for(int i = 0; i<SIZE_1; i++)
+    for(int i = 0; i<GENEPOOL; i++)
         chromosomes[i].fitness_calculation();
 
 }
@@ -63,10 +64,10 @@ void Chromosome::crossover() // TEST!!!
 
     double x;
 
-    for(int i = 0;i<SIZE_1;i++)
+    for(int i = 0;i<GENEPOOL;i++)
     {
         x = rng_ab();
-        index = rng_i(SIZE_1);//get random index
+        index = rng_i(GENEPOOL);//get random index
 
         if(x < PXOVER)//time slot < 36
         {
@@ -91,7 +92,7 @@ void Chromosome::crossover() // TEST!!!
         }
     }
 
-    for(int i = 0; i<SIZE_1; i++)
+    for(int i = 0; i<GENEPOOL; i++)
     {
         if(i == 1)
             int breakPoint = 1;
@@ -124,7 +125,7 @@ void Chromosome::evaluate()
     int best_fitness = 0;
     int best_chromosome_index;
 
-    for(int i = 0;i<SIZE_1;i++)
+    for(int i = 0;i<GENEPOOL;i++)
     {
         if(best_fitness < chromosomes[i].get_fitness())
         {
@@ -135,14 +136,14 @@ void Chromosome::evaluate()
 
     if(prevSequence.empty())
     {
-        for(int i = 0;i < SIZE_1;i++)
+        for(int i = 0;i < GENEPOOL;i++)
         {
             prevSequence.push_back(chromosomes[i]);//copy chromosomes
         }
     }
     else
     {
-        for(int i = 0;i < SIZE_1;i++)
+        for(int i = 0;i < GENEPOOL;i++)
         {
             if(chromosomes[i].get_fitness() < prevSequence[i].get_fitness())
             {
@@ -180,7 +181,7 @@ void Chromosome::report(int generation)
         cout << "\n";
     }
 
-    for (int i=0; i<SIZE_1; i++)
+    for (int i=0; i<GENEPOOL; i++)
     {
         sum += chromosomes[i].get_fitness();
         if(best_val < chromosomes[i].get_fitness())
@@ -189,7 +190,7 @@ void Chromosome::report(int generation)
         }
     }
 
-    avg = sum / (double)SIZE_1;
+    avg = sum / (double)GENEPOOL;
 
     cout << "  " << generation << "                 " << best_val << "                "<< avg <<"\n";
 }
@@ -198,6 +199,11 @@ void Chromosome::print()
 {
     best_chromosome.print_schedule();
 }
+void Chromosome::print_all(int i)
+{
+    chromosomes[i].print_schedule();
+}
+
 int Chromosome::rng_i(int i)
 {
     return rand() % i + 1;

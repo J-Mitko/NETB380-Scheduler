@@ -9,7 +9,7 @@
 
 #include "schedule.h"
 
-extern int SIZE_1;
+extern int GENEPOOL;
 extern double PXOVER ;
 extern int MUTATION;
 
@@ -39,6 +39,8 @@ public:
     void evaluate();
     void report(int generation);
     void print();// print best_cromosome
+
+    void print_all(int i);
 
 };
 

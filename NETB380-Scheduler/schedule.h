@@ -22,7 +22,7 @@ private:
     CourseDB course_db; // _TODO_ this should really be a pointer
     LecturerDB professors_db;
 
-    static int rng(unsigned int i);
+    int rng(unsigned int i);
 
     int fitness;
     int relative_fitness;//relative fitness of each member.
