@@ -2,7 +2,7 @@
 
 Lecturer::Lecturer(){}
 
-Lecturer::Lecturer(const int& id, const string& firstname, const string& lastname, const vector<int>& preference) {
+Lecturer::Lecturer(const int& id, const string& firstname, const string& lastname, const vector<unsigned int> &preference) {
     this->id = id;
     this->firstname = firstname;
     this->lastname = lastname;
@@ -25,6 +25,6 @@ string Lecturer::get_fullname() const {
     return firstname + ' ' + lastname;
 }
 
-int Lecturer::get_preference(int day) const {
+int Lecturer::get_preference(unsigned int day) const {
     return preference[day];
 }

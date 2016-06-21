@@ -32,7 +32,11 @@ void Chromosome::mutate()
 
     lowest_fitness = chromosomes[0].get_fitness();
 
+<<<<<<< HEAD
     for(int mut = 0; mut <= SIZE_1 * 20 /100; mut++)// perform only on 20% of the population
+=======
+    for(int mut = 0; mut <= SIZE * 20/100; mut++)// perform only on 20% of the population
+>>>>>>> 2b289c4c77a0c6b209f6f700f1b01af8bc6f0c80
     {
 
         for(int i = 0;i < SIZE_1; i++)// finds leakest in the one
@@ -51,14 +55,15 @@ void Chromosome::mutate()
         }
     }
 
+    for(int i = 0; i<SIZE; i++)
+        chromosomes[i].fitness_calculation();
+
 }
 
 void Chromosome::crossover() // TEST!!!
 {
-    //const double a = 0.0;
-    //const double b = 1.0;
-    int timeslot_1 = 0;
-    int timeslot_2 = 1;
+    int timeslot_1 = -1;
+    int timeslot_2 = 36;
     int index = 0;//chomosome index
 
     double x;
@@ -70,7 +75,7 @@ void Chromosome::crossover() // TEST!!!
 
         if(x < PXOVER)//time slot < 36
         {
-            if(timeslot_1 < 36 && timeslot_2 < 36)
+            if(timeslot_1 <= 35 && timeslot_2 >= 0)
             {
                 timeslot_1++;
                 if(timeslot_1 % 2 == 0)
@@ -79,12 +84,39 @@ void Chromosome::crossover() // TEST!!!
                 }
                 else
                 {
-                    timeslot_2++;
+                    timeslot_2--;
                 }
             }
             else
-                break;
+            {
+                int swap = timeslot_1;
+                timeslot_1 = timeslot_2;
+                timeslot_2 = swap;
+            }
         }
+    }
+
+    for(int i = 0; i<SIZE; i++)
+    {
+        if(i == 1)
+            int breakPoint = 1;
+        if(i == 2)
+            int breakPoint = 1;
+        if(i == 3)
+            int breakPoint = 1;
+        if(i == 4)
+            int breakPoint = 1;
+        if(i == 5)
+            int breakPoint = 1;
+        if(i == 6)
+            int breakPoint = 1;
+        if(i == 7)
+            int breakPoint = 1;
+        if(i == 8)
+            int breakPoint = 1;
+        if(i == 9)
+            int breakPoint = 1;
+        chromosomes[i].fitness_calculation();
     }
 }
 void Chromosome::Xover(int index, int timeslot_1, int timeslot_2)

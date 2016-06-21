@@ -18,34 +18,32 @@ extern int SATURDAY;
 
 class Schedule {
 private:
-    vector<int> timeslots; // a 36 element vector with course_ids
+    vector<unsigned int> timeslots; // a 36 element vector with course_ids
     CourseDB course_db; // _TODO_ this should really be a pointer
     LecturerDB professors_db;
 
-    static int rng(int i);
+    static int rng(unsigned int i);
 
     int fitness;
     int relative_fitness;//relative fitness of each member.
     int cumulative_fitness;
-    int day_fitness[6];
 
 public:
     Schedule();
     Schedule(CourseDB course_db,LecturerDB lectures_db);
-    int get_course_id_at(int day, int timeslot);
-    void set_course_id_at(int day, int timeslot, int course_id);
+    int get_course_id_at(unsigned int day, unsigned int timeslot);
+    void set_course_id_at(unsigned int day, unsigned int timeslot, unsigned int course_id);
 
     void randomize_schedule();
-    void swap_timeslots(int day1, int timeslot1, int day2, int timeslot2);
-    void swap_timeslots(int timeslot1, int timeslot2);
+    void swap_timeslots(unsigned int day1, unsigned int timeslot1, unsigned int day2, unsigned int timeslot2);
+    void swap_timeslots(unsigned int timeslot1, unsigned int timeslot2);
 
-    bool is_theory_before_lab(int day, int timeslot);
-    bool is_lab_before_theory(int day, int timeslot);
+    bool is_theory_before_lab(unsigned int day, unsigned int timeslot);
+    bool is_lab_before_theory(unsigned int day, unsigned int timeslot);
 
     void fitness_calculation();
-    void professor_preference_deduction(int id,int day);
+    void professor_preference_deduction(unsigned int id,unsigned int day);
     int get_fitness();
-    int get_day_fitness(int day);
 
     int get_relative_fitness();
     void set_relative_fitness(int var);

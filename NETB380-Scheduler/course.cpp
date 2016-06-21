@@ -2,7 +2,7 @@
 #include <cstdio> // should use exceptions later
 #include <stdlib.h>
 
-Course::Course(const int& id, const string& name, const int& lecturer_id, const int& enrolled_students, const int& semester, const int& degree_id, const int& theory_course_id)
+Course::Course(const unsigned int &id, const string& name, const unsigned int &lecturer_id, const unsigned int &enrolled_students, const unsigned int &semester, const unsigned int &degree_id, const unsigned int &theory_course_id)
 {
     this->id = id;
     this->name = name;
@@ -13,7 +13,7 @@ Course::Course(const int& id, const string& name, const int& lecturer_id, const 
     this->theory_course_id = theory_course_id;
 }
 
-int Course::get_id() const
+unsigned int Course::get_id() const
 {
     return id;
 }
@@ -22,23 +22,23 @@ string Course::get_name() const {
     return name;
 }
 
-int Course::get_lecturer_id() const {
+unsigned int Course::get_lecturer_id() const {
     return lecturer_id;
 }
 
-int Course::get_enrolled_students() const {
+unsigned int Course::get_enrolled_students() const {
     return enrolled_students;
 }
 
-int Course::get_semester() const {
+unsigned int Course::get_semester() const {
     return semester;
 }
 
-int Course::get_degree_id() const {
+unsigned int Course::get_degree_id() const {
     return degree_id;
 }
 
-int Course::get_theory_course_id() const {
+unsigned int Course::get_theory_course_id() const {
     return theory_course_id;
 }
 

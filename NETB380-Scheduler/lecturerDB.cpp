@@ -21,7 +21,7 @@ LecturerDB::LecturerDB(PGresult* result)
             string firstname;
             string lastname;
 
-            vector<int> pref_vector;
+            vector<unsigned int> pref_vector;
 
             for (int col = 0; col < cols; col++)
             {
@@ -38,7 +38,7 @@ LecturerDB::LecturerDB(PGresult* result)
                     string pref = PQgetvalue(result, row, col);
                     if(pref.length() > 0)
                     {
-                        for(int i = 0; i < pref.length();i++)
+                        for(unsigned int i = 0; i < pref.length();i++)
                         {
                             if(isdigit(pref[i]))
                             {

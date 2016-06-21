@@ -8,14 +8,14 @@
 
 class CourseDB {
 private:
-    std::map<int,Course> id_to_course_map;
+    std::map<unsigned int,Course> id_to_course_map;
 public:
     CourseDB();
     CourseDB(PGresult *result);
-    std::map<int,Course> get_id_to_course_map() const;
-    Course* get_course_with_id(int id);
+    std::map<unsigned int,Course> get_id_to_course_map() const;
+    Course* get_course_with_id(unsigned int id);
     int get_number_of_courses() const;
-    vector<int> get_all_course_ids();
+    vector<unsigned int> get_all_course_ids();
 };
 
 #endif

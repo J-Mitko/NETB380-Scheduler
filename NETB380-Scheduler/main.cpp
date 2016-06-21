@@ -64,6 +64,8 @@ int main(int argc, char *argv[]) {
         //test.report(i);
     }
     //test.print();*/
+
+    cout << "________________BEST SCHEDULE________________" <<endl;
     //---------------------------------
 
     PQclear(result);
