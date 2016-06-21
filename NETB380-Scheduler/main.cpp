@@ -19,7 +19,7 @@ using namespace std;
 const int MAXGENS = 1000;
 
 int main(int argc, char *argv[]) {
-    PGconn *conn = PQconnectdb("dbname=scheduler host=127.0.0.1 user=postgres password=admin");
+    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres password=admin");
 
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
