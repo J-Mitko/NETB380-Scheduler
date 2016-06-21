@@ -1,5 +1,6 @@
-QT += core
-QT -= gui
+QT += core gui
+
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
 
@@ -15,7 +16,8 @@ SOURCES += main.cpp \
     schedule.cpp \
     courseDB.cpp \
     lecturerDB.cpp \
-    chromosome.cpp
+    chromosome.cpp \
+    mainwindow.cpp
 
 HEADERS += \
     course.h \
@@ -23,10 +25,13 @@ HEADERS += \
     courseDB.h \
     lecturerDB.h \
     lecturer.h \
-    chromosome.h
+    chromosome.h \
+    mainwindow.h
+
+FORMS    += mainwindow.ui
 
 #QMAKE_CXXFLAGS += -lpq
-QMAKE_LFLAGS += -L D:\NETB\psql\bin -lpq # jMITKO'S
+QMAKE_LFLAGS += -L D:\PSQL\bin -lpq # jMITKO'S
 #QMAKE_LFLAGS += -L MILEN -lpq
 #message($LIBPQ_PATH)
 

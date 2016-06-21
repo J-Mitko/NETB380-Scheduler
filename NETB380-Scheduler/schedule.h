@@ -1,6 +1,7 @@
 #ifndef SCHEDULE_H
 #define SCHEDULE_H
 
+#include <QtGui>
 #include <vector>
 #include "course.h"
 #include "courseDB.h"
@@ -50,8 +51,8 @@ public:
     void set_relative_fitness(int var);
     int get_cumulative_fitness();
     void set_cumulative_fitness(int var);
-
     void print_schedule();
+    void print_schedule(QStandardItemModel *model);
 };
 
 #endif // SCHEDULE_H

@@ -10,14 +10,16 @@
 #include "courseDB.h"
 #include "lecturerDB.h"
 #include "chromosome.h"
+#include "mainwindow.h"
+#include <QApplication>
 
 
 using namespace std;
 
 const int MAXGENS = 10;
 
-int main() {
-    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres password=admin");
+int main(int argc, char *argv[]) {
+    PGconn *conn = PQconnectdb("dbname=scheduler host=127.0.0.1 user=postgres password=admin");
 
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
@@ -47,17 +49,21 @@ int main() {
     puts("Printing schedule...");
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     schedule.print_schedule();
+    QApplication a(argc, argv);
+    MainWindow w(schedule);
+    w.show();
+    return a.exec();
 
     //-------------TEST----------------
-    Chromosome test(schedule);
+    /*Chromosome test(schedule);
     for(int i = 0;i< MAXGENS;i++)
     {
-        test.crossover();
-        test.mutate();
-        test.evaluate();
-        test.report(i);
+        //test.crossover();
+        //test.mutate();
+        //test.evaluate();
+        //test.report(i);
     }
-    test.print();
+    //test.print();*/
     //---------------------------------
 
     PQclear(result);

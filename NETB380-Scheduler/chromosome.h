@@ -9,7 +9,7 @@
 
 #include "schedule.h"
 
-extern int SIZE;
+extern int SIZE_1;
 extern double PXOVER ;
 extern int MUTATION;
 

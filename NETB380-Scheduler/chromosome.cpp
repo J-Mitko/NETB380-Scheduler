@@ -1,14 +1,14 @@
 #include "chromosome.h"
 #include <math.h>
 
-int SIZE = 10;
+int SIZE_1 = 10;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
 Chromosome::Chromosome(Schedule init_schedule)
 {
     srand(unsigned(time(0)));
-    for(int i = 0;i< SIZE;i++)
+    for(int i = 0;i< SIZE_1;i++)
     {
         init_schedule.randomize_schedule();
         chromosomes.push_back(init_schedule);
@@ -32,10 +32,10 @@ void Chromosome::mutate()
 
     lowest_fitness = chromosomes[0].get_fitness();
 
-    for(int mut = 0; mut <= SIZE * 20 /100; mut++)// perform only on 20% of the population
+    for(int mut = 0; mut <= SIZE_1 * 20 /100; mut++)// perform only on 20% of the population
     {
 
-        for(int i = 0;i < SIZE; i++)// finds leakest in the one
+        for(int i = 0;i < SIZE_1; i++)// finds leakest in the one
         {
             current_fitness = chromosomes[i].get_fitness();
             if(current_fitness < lowest_fitness)
@@ -63,10 +63,10 @@ void Chromosome::crossover() // TEST!!!
 
     double x;
 
-    for(int i = 0;i<SIZE;i++)
+    for(int i = 0;i<SIZE_1;i++)
     {
         x = rng_ab();
-        index = rng_i(SIZE);//get random index
+        index = rng_i(SIZE_1);//get random index
 
         if(x < PXOVER)//time slot < 36
         {
@@ -97,7 +97,7 @@ void Chromosome::evaluate()
     int best_fitness = 0;
     int best_chromosome_index;
 
-    for(int i = 0;i<SIZE;i++)
+    for(int i = 0;i<SIZE_1;i++)
     {
         if(best_fitness < chromosomes[i].get_fitness())
         {
@@ -108,14 +108,14 @@ void Chromosome::evaluate()
 
     if(prevSequence.empty())
     {
-        for(int i = 0;i < SIZE;i++)
+        for(int i = 0;i < SIZE_1;i++)
         {
             prevSequence.push_back(chromosomes[i]);//copy chromosomes
         }
     }
     else
     {
-        for(int i = 0;i < SIZE;i++)
+        for(int i = 0;i < SIZE_1;i++)
         {
             if(chromosomes[i].get_fitness() < prevSequence[i].get_fitness())
             {
@@ -153,7 +153,7 @@ void Chromosome::report(int generation)
         cout << "\n";
     }
 
-    for (int i=0; i<SIZE; i++)
+    for (int i=0; i<SIZE_1; i++)
     {
         sum += chromosomes[i].get_fitness();
         if(best_val < chromosomes[i].get_fitness())
@@ -162,7 +162,7 @@ void Chromosome::report(int generation)
         }
     }
 
-    avg = sum / (double)SIZE;
+    avg = sum / (double)SIZE_1;
 
     cout << "  " << generation << "                 " << best_val << "                "<< avg <<"\n";
 }
