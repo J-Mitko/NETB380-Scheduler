@@ -8,14 +8,14 @@ double PXOVER = 0.8;
 Chromosome::Chromosome(Schedule init_schedule)
 {
     srand(unsigned(time(0)));
-    int i = 0;
-//    for(int i = 0;i< GENEPOOL;i++)
-//    {
-        init_schedule.randomize_schedule();
-        chromosomes.push_back(init_schedule);
+    for(int i = 0;i< GENEPOOL;i++)
+    {
+            init_schedule.randomize_schedule();
+            chromosomes.push_back(init_schedule);
 
-        chromosomes[i].fitness_calculation();//call for first time fitness_calculation()
-//    }
+            chromosomes[i].fitness_calculation();//call for first time fitness_calculation()
+            cout << "Fitnes in constructor" << chromosomes[i].get_fitness() << endl;
+    }
 }
 
 Chromosome::~Chromosome()
@@ -59,7 +59,7 @@ void Chromosome::mutate()
 void Chromosome::crossover() // TEST!!!
 {
     int timeslot_1 = -1;
-    int timeslot_2 = 36;
+    int timeslot_2 = 35;
     int index = 0;//chomosome index
 
     double x;
@@ -67,7 +67,7 @@ void Chromosome::crossover() // TEST!!!
     for(int i = 0;i<GENEPOOL;i++)
     {
         x = rng_ab();
-        index = rng_i(GENEPOOL);//get random index
+        index = rng_i(GENEPOOL-1);//get random index
 
         if(x < PXOVER)//time slot < 36
         {
@@ -94,24 +94,6 @@ void Chromosome::crossover() // TEST!!!
 
     for(int i = 0; i<GENEPOOL; i++)
     {
-        if(i == 1)
-            int breakPoint = 1;
-        if(i == 2)
-            int breakPoint = 1;
-        if(i == 3)
-            int breakPoint = 1;
-        if(i == 4)
-            int breakPoint = 1;
-        if(i == 5)
-            int breakPoint = 1;
-        if(i == 6)
-            int breakPoint = 1;
-        if(i == 7)
-            int breakPoint = 1;
-        if(i == 8)
-            int breakPoint = 1;
-        if(i == 9)
-            int breakPoint = 1;
         chromosomes[i].fitness_calculation();
     }
 }
@@ -184,15 +166,17 @@ void Chromosome::report(int generation)
     for (int i=0; i<GENEPOOL; i++)
     {
         sum += chromosomes[i].get_fitness();
+
         if(best_val < chromosomes[i].get_fitness())
         {
             best_val = chromosomes[i].get_fitness();
         }
+        cout << "  " << i << "                 "  << chromosomes[i].get_fitness() <<endl;
     }
-
+    cout << endl;
     avg = sum / (double)GENEPOOL;
+    cout << "  " << generation << "                 "  << best_val << "                 " << avg << endl;
 
-    cout << "  " << generation << "                 " << best_val << "                "<< avg <<"\n";
 }
 
 void Chromosome::print()

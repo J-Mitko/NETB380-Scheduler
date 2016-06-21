@@ -22,7 +22,7 @@ private:
     CourseDB course_db; // _TODO_ this should really be a pointer
     LecturerDB professors_db;
 
-    int rng(unsigned int i);
+    static int rng(unsigned int i);
 
     int fitness;
     int relative_fitness;//relative fitness of each member.
@@ -31,7 +31,7 @@ private:
 public:
     Schedule();
     Schedule(CourseDB course_db,LecturerDB lectures_db);
-    int get_course_id_at(unsigned int day, unsigned int timeslot);
+    unsigned int get_course_id_at(unsigned int day, unsigned int timeslot);
     void set_course_id_at(unsigned int day, unsigned int timeslot, unsigned int course_id);
 
     void randomize_schedule();

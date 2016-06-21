@@ -1,6 +1,7 @@
 #include "courseDB.h"
 #include <string>
 #include <iostream>
+#include <QDebug>
 
 CourseDB::CourseDB(){}
 

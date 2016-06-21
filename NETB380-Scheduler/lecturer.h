@@ -16,8 +16,7 @@ private:
                             // The preference order should be from 0 (lowest) to 5 (highests)
 
 public:
-    Lecturer();
-    Lecturer(const int& id, const string& firstname, const string& lastname, const vector<unsigned int>& preference);
+    Lecturer(const int& id, const string& firstname, const string& lastname, const vector<unsigned int> &preference);
 
     int get_id() const;
     string get_firstname() const;

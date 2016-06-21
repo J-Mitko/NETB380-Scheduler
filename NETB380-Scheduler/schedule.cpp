@@ -37,7 +37,7 @@ Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
     cumulative_fitness = 0;
 }
 
-int Schedule::get_course_id_at(unsigned int day, unsigned int timeslot) {
+unsigned int Schedule::get_course_id_at(unsigned int day, unsigned int timeslot) {
 	int index = TIMESLOTS_PER_DAY * day + timeslot;
 	return timeslots[index];
 }
@@ -55,7 +55,7 @@ void Schedule::randomize_schedule() {
     vector<unsigned int> ids = course_db.get_all_course_ids();
 	ids.resize(36, 0);
 	timeslots = ids;
-    random_shuffle(timeslots.begin(), timeslots.end()); // randomize
+    random_shuffle(timeslots.begin(), timeslots.end(),rng); // randomize
 }
 
 void Schedule::swap_timeslots(unsigned int day1, unsigned int timeslot1, unsigned int day2, unsigned int timeslot2) {
@@ -76,20 +76,20 @@ void Schedule::swap_timeslots(unsigned int timeslot1, unsigned int timeslot2)
 void Schedule::print_schedule() {
 	for (int i = 0; i < NUM_WORKING_DAYS * TIMESLOTS_PER_DAY; i++) {
 		if (i % TIMESLOTS_PER_DAY == 0) {
-			puts("");
+            puts("");
 		}
-		int course_id = timeslots[i];
+        int course_id = timeslots[i];
 		if (course_id == 0) { // i.e. dummy course id
-			puts("FREE");
+            puts("FREE");
 			continue;
 		}
 		Course* course = course_db.get_course_with_id(course_id);
 		if (course == NULL) {
-			puts("FREE");
+            puts("FREE");
 			continue;
 		}
 		string course_name = course->get_name();
-		puts(course_name.c_str());
+        puts(course_name.c_str());
 	}
 }
 void Schedule::print_schedule(QStandardItemModel* model) {
@@ -157,14 +157,14 @@ bool Schedule::is_lab_before_theory(unsigned int day, unsigned int timeslot)
 
 void Schedule::fitness_calculation()
 {
-    unsigned int current_course_id;
+    int current_course_id =0;
     fitness = MAX_FITNESS;// RESET FITNESS VALUE
 
     for(int day = 0;day<6;day++)
     {
         for(int slot = 0;slot<6;slot++)//6 timeslots a day
         {
-            current_course_id = get_course_id_at(day,slot);
+            current_course_id = this->get_course_id_at(day,slot);
             if(current_course_id != 0) // not dummy course
             {
                 //check semester <= 1

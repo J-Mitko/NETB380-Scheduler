@@ -19,7 +19,7 @@ using namespace std;
 const int MAXGENS = 10;
 
 int main(int argc, char *argv[]) {
-    PGconn *conn = PQconnectdb("dbname=courseinfo host=127.0.0.1 user=postgres password=admin");
+    PGconn *conn = PQconnectdb("dbname=scheduler host=127.0.0.1 user=postgres password=admin");
 
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
@@ -44,7 +44,6 @@ int main(int argc, char *argv[]) {
     }
     LecturerDB lecturer_db(result);
 
-
     Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
     puts("Printing schedule...");
@@ -57,34 +56,23 @@ int main(int argc, char *argv[]) {
 
     //-------------TEST----------------
     Chromosome test(schedule);
-    Chromosome test1(schedule);
-    Chromosome test2(schedule);
 
-//    for(int i = 0;i< MAXGENS;i++)
-//    {
 
-        //test.crossover();
-        //test.mutate();
-        //test.evaluate();
-        cout<< "GENERATION              0                    BEGIN" <<endl;
-        test.report(0);
-        test2.report(0);
-        cout<< "---------------------END------------------------" <<endl;
+    for(int i = 0;i< MAXGENS;i++)
+    {
 
-        cout<< "GENERATION              1                    BEGIN" <<endl;
-        test1.report(0);
-        test1.print_all(0);
-        cout<< "---------------------END------------------------" <<endl;
+        test.crossover();
+        test.mutate();
+        test.evaluate();
 
-        cout<< "GENERATION              2                    BEGIN" <<endl;
-        test2.report(0);
-        test2.print_all(0);
-        cout<< "---------------------END------------------------" <<endl;
-//    }
+        test.report(i);
+        //test.print_all(i);
+
+    }
 
 
     cout << "________________BEST SCHEDULE________________" <<endl;
-    //test.print();
+    test.print();
     //---------------------------------
 
     PQclear(result);

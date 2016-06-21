@@ -23,8 +23,8 @@ private:
 
     Schedule best_chromosome;
 
-    int rng_i(int i);
-    double rng_ab();
+    static int rng_i(int i);
+    static double rng_ab();
 public:
     Chromosome(Schedule init_schedule);
     ~Chromosome();

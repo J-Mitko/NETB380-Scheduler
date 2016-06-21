@@ -1,6 +1,7 @@
 #include "lecturer.h"
+#include <iostream>
 
-Lecturer::Lecturer(){}
+using namespace std;
 
 Lecturer::Lecturer(const int& id, const string& firstname, const string& lastname, const vector<unsigned int> &preference) {
     this->id = id;
