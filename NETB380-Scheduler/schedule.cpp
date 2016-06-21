@@ -55,7 +55,7 @@ void Schedule::randomize_schedule() {
     vector<unsigned int> ids = course_db.get_all_course_ids();
 	ids.resize(36, 0);
 	timeslots = ids;
-	random_shuffle(timeslots.begin(), timeslots.end(), rng); // randomize
+    random_shuffle(timeslots.begin(), timeslots.end()); // randomize
 }
 
 void Schedule::swap_timeslots(unsigned int day1, unsigned int timeslot1, unsigned int day2, unsigned int timeslot2) {
