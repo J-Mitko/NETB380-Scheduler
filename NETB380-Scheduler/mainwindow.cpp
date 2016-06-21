@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-#include <QGridLayout>
+
 
 MainWindow::MainWindow(Schedule result, QWidget *parent) :
     QMainWindow(parent),
@@ -10,16 +10,13 @@ MainWindow::MainWindow(Schedule result, QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("Scheduler");
 
-    QGridLayout *layout =   new QGridLayout;
 
     model = new QStandardItemModel(6,6,this);
     model->setHorizontalHeaderLabels(QStringList() << "Monday" << "Tuesday" << "Wensday" << "Thursday" << "Friday" << "Saturday");
     model->setVerticalHeaderLabels(QStringList() << "8:00-9:30" << "9:40-11:10" << "11:20-12:50" << "13:00-14:30" << "14:40-16:10" << "16:20-17:50");
 
+    result.print_schedule(model);
 
-           result.print_schedule(model);
-
-    ui->tableView->setLayout(layout);
     ui->tableView->setModel(model);
 }
 
