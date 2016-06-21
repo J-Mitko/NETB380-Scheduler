@@ -16,7 +16,7 @@
 
 using namespace std;
 
-const int MAXGENS = 10;
+const int MAXGENS = 1000;
 
 int main(int argc, char *argv[]) {
     PGconn *conn = PQconnectdb("dbname=scheduler host=127.0.0.1 user=postgres password=admin");
@@ -49,10 +49,7 @@ int main(int argc, char *argv[]) {
     puts("Printing schedule...");
     schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
     //schedule.print_schedule();
-    QApplication a(argc, argv);
-    MainWindow w(schedule);
-    //w.show();
-    //return a.exec();
+
 
     //-------------TEST----------------
     Chromosome test(schedule);
@@ -74,7 +71,12 @@ int main(int argc, char *argv[]) {
     cout << "________________BEST SCHEDULE________________" <<endl;
     test.print();
     //---------------------------------
-
+    //--------------------------GUI-----------------------------------
+    QApplication a(argc, argv);
+    MainWindow w(test);
+    w.show();
+    return a.exec();
+    //--------------------------GUI-----------------------------------
     PQclear(result);
     PQfinish(conn);
     return 0;

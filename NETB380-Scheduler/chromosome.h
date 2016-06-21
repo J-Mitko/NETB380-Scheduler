@@ -41,7 +41,7 @@ public:
     void print();// print best_cromosome
 
     void print_all(int i);
-
+    Schedule get_best_chromosome();
 };
 
 #endif // POPULATION_H

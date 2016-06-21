@@ -1,7 +1,7 @@
 #include "chromosome.h"
 #include <math.h>
 
-int GENEPOOL = 10;
+int GENEPOOL = 10000;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
@@ -14,7 +14,7 @@ Chromosome::Chromosome(Schedule init_schedule)
             chromosomes.push_back(init_schedule);
 
             chromosomes[i].fitness_calculation();//call for first time fitness_calculation()
-            cout << "Fitnes in constructor" << chromosomes[i].get_fitness() << endl;
+            //cout << "Fitnes in constructor" << chromosomes[i].get_fitness() << endl;
     }
 }
 
@@ -71,7 +71,7 @@ void Chromosome::crossover() // TEST!!!
 
         if(x < PXOVER)//time slot < 36
         {
-            if(timeslot_1 <= 35 && timeslot_2 >= 0)
+            if(timeslot_1 <= 34 && timeslot_2 >= 1)
             {
                 timeslot_1++;
                 if(timeslot_1 % 2 == 0)
@@ -171,11 +171,12 @@ void Chromosome::report(int generation)
         {
             best_val = chromosomes[i].get_fitness();
         }
-        cout << "  " << i << "                 "  << chromosomes[i].get_fitness() <<endl;
+        //cout << "  " << i << "                 "  << chromosomes[i].get_fitness() <<endl;
     }
-    cout << endl;
+    //cout << endl;
     avg = sum / (double)GENEPOOL;
-    cout << "  " << generation << "                 "  << best_val << "                 " << avg << endl;
+    if(generation%10==0)
+        cout << "  " << generation << "                 "  << best_val << "                 " << avg << endl;
 
 }
 
@@ -198,4 +199,8 @@ double Chromosome::rng_ab()
     return rng;
 }
 
+Schedule Chromosome::get_best_chromosome()
+{
+    return this->best_chromosome;
+}
 

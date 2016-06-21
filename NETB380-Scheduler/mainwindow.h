@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QString>
-#include <schedule.h>
+#include <chromosome.h>
 
 namespace Ui {
 class MainWindow;
@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Schedule result,QWidget *parent = 0);
+    explicit MainWindow(Chromosome result, QWidget *parent = 0);
     ~MainWindow();
 
 private slots:

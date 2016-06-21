@@ -92,6 +92,7 @@ void Schedule::print_schedule() {
         puts(course_name.c_str());
 	}
 }
+
 void Schedule::print_schedule(QStandardItemModel* model) {
     for (int i = 0; i < NUM_WORKING_DAYS * TIMESLOTS_PER_DAY; i++) {
         int course_id = timeslots[i];

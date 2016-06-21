@@ -3,7 +3,7 @@
 #include <QDebug>
 
 
-MainWindow::MainWindow(Schedule result, QWidget *parent) :
+MainWindow::MainWindow(Chromosome result, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -15,7 +15,7 @@ MainWindow::MainWindow(Schedule result, QWidget *parent) :
     model->setHorizontalHeaderLabels(QStringList() << "Monday" << "Tuesday" << "Wensday" << "Thursday" << "Friday" << "Saturday");
     model->setVerticalHeaderLabels(QStringList() << "8:00-9:30" << "9:40-11:10" << "11:20-12:50" << "13:00-14:30" << "14:40-16:10" << "16:20-17:50");
 
-    result.print_schedule(model);
+    result.get_best_chromosome().print_schedule(model);
 
     ui->tableView->setModel(model);
 }
