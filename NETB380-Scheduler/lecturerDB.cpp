@@ -21,7 +21,7 @@ LecturerDB::LecturerDB(PGresult* result)
             string firstname;
             string lastname;
 
-            vector<int> pref_vector;
+            vector<unsigned int> pref_vector;
 
             for (int col = 0; col < cols; col++)
             {

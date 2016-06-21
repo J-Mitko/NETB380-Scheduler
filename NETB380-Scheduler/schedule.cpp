@@ -15,7 +15,6 @@ int FRIDAY = 4;
 int SATURDAY= 5;
 
 const int MAX_FITNESS = 3900;
-const int MAX_DAY_FITNESS = 660;
 
 const int TIMESLOTS_PER_DAY = 6;
 const int NUM_WORKING_DAYS = 6;
@@ -34,34 +33,30 @@ Schedule::Schedule(CourseDB course_db,LecturerDB lectures_db) {
     fitness = MAX_FITNESS;
     relative_fitness = 0;
     cumulative_fitness = 0;
-    for(int i = 0;i<6;i++)
-    {
-        day_fitness[i] = MAX_DAY_FITNESS;
-    }
 }
 
-int Schedule::get_course_id_at(int day, int timeslot) {
+int Schedule::get_course_id_at(unsigned int day, unsigned int timeslot) {
 	int index = TIMESLOTS_PER_DAY * day + timeslot;
 	return timeslots[index];
 }
 
-void Schedule::set_course_id_at(int day, int timeslot, int course_id) {
+void Schedule::set_course_id_at(unsigned int day, unsigned int timeslot, unsigned int course_id) {
 	int index = TIMESLOTS_PER_DAY * day + timeslot;
 	timeslots[index] = course_id;
 }
 
-int Schedule::rng(int i) {
+int Schedule::rng(unsigned int i) {
 	return rand() % i;
 }
 
 void Schedule::randomize_schedule() {
-	vector<int> ids = course_db.get_all_course_ids();
+    vector<unsigned int> ids = course_db.get_all_course_ids();
 	ids.resize(36, 0);
 	timeslots = ids;
 	random_shuffle(timeslots.begin(), timeslots.end(), rng); // randomize
 }
 
-void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) {
+void Schedule::swap_timeslots(unsigned int day1, unsigned int timeslot1, unsigned int day2, unsigned int timeslot2) {
 	int index1 = TIMESLOTS_PER_DAY * day1 + timeslot1;
 	int index2 = TIMESLOTS_PER_DAY * day2 + timeslot2;
 	int temp_course_id = timeslots[index1];
@@ -69,7 +64,7 @@ void Schedule::swap_timeslots(int day1, int timeslot1, int day2, int timeslot2) 
 	timeslots[index2] = temp_course_id;
 }
 
-void Schedule::swap_timeslots(int timeslot1, int timeslot2)
+void Schedule::swap_timeslots(unsigned int timeslot1, unsigned int timeslot2)
 {
     int temp_course_id = timeslots[timeslot1];
     timeslots[timeslot1] = timeslots[timeslot2];
@@ -98,7 +93,7 @@ void Schedule::print_schedule() {
 
 // Give a timeslot and if it has s lab course in it
 // it will return wether it is after the theory
-bool Schedule::is_theory_before_lab(int day, int timeslot) {
+bool Schedule::is_theory_before_lab(unsigned int day, unsigned int timeslot) {
 	int index = TIMESLOTS_PER_DAY * day + timeslot;
 
     if (timeslots[index] == 0)//first course of the day
@@ -119,7 +114,7 @@ bool Schedule::is_theory_before_lab(int day, int timeslot) {
 
 
 // it will return weather or not it is before the theory
-bool Schedule::is_lab_before_theory(int day, int timeslot)
+bool Schedule::is_lab_before_theory(unsigned int day, unsigned int timeslot)
 {
     int index = TIMESLOTS_PER_DAY * day + timeslot;
 
@@ -146,9 +141,9 @@ void Schedule::fitness_calculation()
 
     for(int day = 0;day<6;day++)
     {
-        for(int timeslot = 0;timeslot<6;timeslot++)//6 timeslots a day
+        for(int slot = 0;slot<6;slot++)//6 timeslots a day
         {
-            current_course_id = get_course_id_at(day,timeslot);
+            current_course_id = get_course_id_at(day,slot);
             if(current_course_id != 0) // not dummy course
             {
                 //check semester <= 1
@@ -160,7 +155,7 @@ void Schedule::fitness_calculation()
                     {
                         //THEORY COURSE
                         //check if theory before lab
-                        if(is_theory_before_lab(day,timeslot))
+                        if(is_theory_before_lab(day,slot))
                         {
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
@@ -168,16 +163,14 @@ void Schedule::fitness_calculation()
                         else
                         {
                             fitness -= 120;
-                            day_fitness[day] -=120;
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
                     }
                     else // LAB Course
                     {
-                        if(is_lab_before_theory(day,timeslot))// lab before theory
+                        if(is_lab_before_theory(day,slot))// lab before theory
                         {
                             fitness -= 120;
-                            day_fitness[day] -=120;
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
 
@@ -190,14 +183,13 @@ void Schedule::fitness_calculation()
                 else
                 {//-420
                     fitness -= 300;
-                    day_fitness[day] -=300;
 
                     //check if it is a theory_course or lab course
                     if( course_db.get_course_with_id(current_course_id)->is_theory_course() )
                     {
                         //THEORY COURSE
                         //check if theory before lab
-                        if(is_theory_before_lab(day,timeslot))
+                        if(is_theory_before_lab(day,slot))
                         {
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
@@ -205,16 +197,14 @@ void Schedule::fitness_calculation()
                         else
                         {
                             fitness -= 120;
-                            day_fitness[day] -=120;
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
                     }
                     else // LAB Course
                     {
-                        if(is_lab_before_theory(day,timeslot))// lab before theory
+                        if(is_lab_before_theory(day,slot))// lab before theory
                         {
                             fitness -= 120;
-                            day_fitness[day] -=120;
                             professor_preference_deduction(course_db.get_course_with_id(current_course_id)->get_lecturer_id(),day);//check professor preference vector
                         }
                         else
@@ -229,48 +219,38 @@ void Schedule::fitness_calculation()
     }
 }
 
-void Schedule::professor_preference_deduction(int id, int day)
+void Schedule::professor_preference_deduction(unsigned int id, unsigned int day)
 {
     //-25*6 = 150
     if(professors_db.get_lector_with_id(id)->get_preference(day) == 0 )
     {
         fitness -= 10;
-        day_fitness[day] -=10;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 1 )
     {
         fitness -= 5;
-        day_fitness[day] -=5;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 2 )
     {
         fitness -= 4;
-        day_fitness[day] -=4;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 3 )
     {
         fitness -= 3;
-        day_fitness[day] -=3;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 4 )
     {
         fitness -= 2;
-        day_fitness[day] -=2;
     }
     else if(professors_db.get_lector_with_id(id)->get_preference(day) == 5 )
     {
         fitness -= 1;
-        day_fitness[day] -=1;
     }
 }
 
 int Schedule::get_fitness()
 {
     return fitness;
-}
-int Schedule::get_day_fitness(int day)
-{
-    return day_fitness[day];
 }
 
 int Schedule::get_relative_fitness()

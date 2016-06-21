@@ -93,7 +93,27 @@ void Chromosome::crossover() // TEST!!!
     }
 
     for(int i = 0; i<SIZE; i++)
+    {
+        if(i == 1)
+            int breakPoint = 1;
+        if(i == 2)
+            int breakPoint = 1;
+        if(i == 3)
+            int breakPoint = 1;
+        if(i == 4)
+            int breakPoint = 1;
+        if(i == 5)
+            int breakPoint = 1;
+        if(i == 6)
+            int breakPoint = 1;
+        if(i == 7)
+            int breakPoint = 1;
+        if(i == 8)
+            int breakPoint = 1;
+        if(i == 9)
+            int breakPoint = 1;
         chromosomes[i].fitness_calculation();
+    }
 }
 void Chromosome::Xover(int index, int timeslot_1, int timeslot_2)
 {

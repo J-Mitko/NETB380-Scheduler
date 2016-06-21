@@ -45,12 +45,12 @@ CourseDB::CourseDB(PGresult* result) {
     }
 }
 
-std::map<int, Course> CourseDB::get_id_to_course_map() const{
+std::map<unsigned int, Course> CourseDB::get_id_to_course_map() const{
     return id_to_course_map;
 }
 
-Course* CourseDB::get_course_with_id(int id) {
-    std::map<int,Course>::iterator it = id_to_course_map.find(id);
+Course* CourseDB::get_course_with_id(unsigned int id) {
+    std::map<unsigned int,Course>::iterator it = id_to_course_map.find(id);
     Course* course = NULL;       
     if (it != id_to_course_map.end()) {
         course = &((*it).second);
@@ -63,9 +63,9 @@ int CourseDB::get_number_of_courses() const {
 }
 
 // Ignores the dummy id 0
-vector<int> CourseDB::get_all_course_ids() {
-    vector<int> ids;
-    for (std::map<int,Course>::iterator it = id_to_course_map.begin(); it != id_to_course_map.end(); ++it) {
+vector<unsigned int> CourseDB::get_all_course_ids() {
+    vector<unsigned int> ids;
+    for (std::map<unsigned int,Course>::iterator it = id_to_course_map.begin(); it != id_to_course_map.end(); ++it) {
         if (it->first != 0)
             ids.push_back(it->first);
     }
