@@ -31,12 +31,7 @@ void Chromosome::mutate()
     int x;
 
     lowest_fitness = chromosomes[0].get_fitness();
-
-<<<<<<< HEAD
     for(int mut = 0; mut <= SIZE_1 * 20 /100; mut++)// perform only on 20% of the population
-=======
-    for(int mut = 0; mut <= SIZE * 20/100; mut++)// perform only on 20% of the population
->>>>>>> 2b289c4c77a0c6b209f6f700f1b01af8bc6f0c80
     {
 
         for(int i = 0;i < SIZE_1; i++)// finds leakest in the one
@@ -55,7 +50,7 @@ void Chromosome::mutate()
         }
     }
 
-    for(int i = 0; i<SIZE; i++)
+    for(int i = 0; i<SIZE_1; i++)
         chromosomes[i].fitness_calculation();
 
 }
@@ -96,7 +91,7 @@ void Chromosome::crossover() // TEST!!!
         }
     }
 
-    for(int i = 0; i<SIZE; i++)
+    for(int i = 0; i<SIZE_1; i++)
     {
         if(i == 1)
             int breakPoint = 1;
