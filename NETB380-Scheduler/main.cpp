@@ -20,6 +20,7 @@ using namespace std;
 const int MAXGENS = 10;
 
 int main(int argc, char *argv[]) {
+
     QApplication a(argc, argv);
     MainWindow w;
     QStringList login_input = w.login_window();
@@ -27,6 +28,7 @@ int main(int argc, char *argv[]) {
     string str = conn_str.toStdString();
     const char* con_char = str.c_str();
     PGconn *conn = PQconnectdb(con_char);
+
 
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
