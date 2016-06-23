@@ -13,11 +13,33 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <qDebug>
+#include <stdlib.h>
 
 
 using namespace std;
 
 const int MAXGENS = 2555;
+
+void addSchedule (PGconn *conn, Schedule schedule) {
+    if (PQstatus(conn) == CONNECTION_BAD) {
+        puts("[ERR ] Could not connect to the database.");
+        puts(PQerrorMessage(conn));
+    }
+    auto timeslots = schedule.get_timeslots();
+    string timeslotsStr = "{";
+    for (auto timeslot : timeslots) {
+        timeslotsStr += to_string(timeslot);
+        timeslotsStr += ",";
+    }
+    timeslotsStr[timeslotsStr.length() - 1] = '}';
+    string querryString = "insert into schedules (id, timeslots) values (DEFAULT, '" + timeslotsStr + "')";
+    PGresult* result = PQexec(conn, querryString.c_str());
+    if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+        puts("[INFO] No data was found in table 'courses'.");
+    }
+    puts("Schedule stored!");
+}
+
 
 int main(int argc, char *argv[]) {
 
@@ -45,7 +67,6 @@ int main(int argc, char *argv[]) {
     }
     CourseDB course_db(result);
 
-
     PQclear(result);
     result = PQexec(conn, "select * from lecturers order by id");
     if (PQresultStatus(result) != PGRES_TUPLES_OK) {
@@ -56,6 +77,8 @@ int main(int argc, char *argv[]) {
 
     Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
+
+    addSchedule(conn, schedule);
 
     Chromosome newSchedule( 255 ,schedule);
 
