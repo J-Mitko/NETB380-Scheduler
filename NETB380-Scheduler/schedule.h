@@ -5,7 +5,7 @@
 #include "course.h"
 #include "courseDB.h"
 #include "lecturerDB.h"
-#include <QtGui>
+#include <QTableWidget>
 
 using namespace std;
 
@@ -51,7 +51,7 @@ public:
     void set_cumulative_fitness(int var);
     void print_schedule();
 
-    void print_schedule(QStandardItemModel *model);
+    void print_schedule(QTableWidget *model);
 };
 
 #endif // SCHEDULE_H

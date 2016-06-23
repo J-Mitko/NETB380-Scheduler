@@ -4,8 +4,9 @@
 #include <cstdlib>
 #include <cstdio>
 #include <string>
-#include <mainwindow.h>
+#include <window.h>
 #include <qDebug>
+#include <QTableWidgetItem>
 
 // Global variables to use in other classes
 // for convenience.
@@ -93,23 +94,22 @@ void Schedule::print_schedule() {
 	}
 }
 
-void Schedule::print_schedule(QStandardItemModel* model) {
+void Schedule::print_schedule(QTableWidget* model) {
     for (int i = 0; i < NUM_WORKING_DAYS * TIMESLOTS_PER_DAY; i++) {
         int course_id = timeslots[i];
         if (course_id == 0) { // i.e. dummy course id
-            QModelIndex index = model->index(i%6,i/6,QModelIndex());
-            model->setData(index,"FREE");
+            QTableWidgetItem * index = new QTableWidgetItem ("FREE");
+            model->setItem(i%6,i/6,index);
             continue;
         }
         Course* course = course_db.get_course_with_id(course_id);
         if (course == NULL) {
-            QModelIndex index = model->index(i%6,i/6,QModelIndex());
-            model->setData(index,"FREE");
+            QTableWidgetItem *  index = new QTableWidgetItem ("FREE");
+            model->setItem(i%6,i/6,index);
             continue;
         }
-        string course_name = course->get_name();
-        QModelIndex index = model->index(i%6,i/6,QModelIndex());
-        model->setData(index,course_name.c_str());
+        QTableWidgetItem *  index = new QTableWidgetItem (QString::fromStdString(course->get_name()));
+        model->setItem(i%6,i/6,index);
     }
 }
 

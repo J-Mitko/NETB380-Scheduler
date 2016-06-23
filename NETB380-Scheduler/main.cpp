@@ -10,7 +10,7 @@
 #include "courseDB.h"
 #include "lecturerDB.h"
 #include "chromosome.h"
-#include "mainwindow.h"
+#include "window.h"
 #include <QApplication>
 #include <qDebug>
 
@@ -22,9 +22,9 @@ const int MAXGENS = 10;
 int main(int argc, char *argv[]) {
 
     QApplication a(argc, argv);
-    MainWindow w;
+    window w;
     QStringList login_input = w.login_window();
-    QString conn_str = QString("dbname=%1 host=%2 user=%3 password=%4").arg(login_input[1]).arg(login_input[0]).arg(login_input[2].arg(login_input[3]));
+    QString conn_str = QString("dbname=%1 host=%2 user=%3 password=%4").arg(login_input[1],login_input[0],login_input[2],login_input[3]);
     string str = conn_str.toStdString();
     const char* con_char = str.c_str();
     PGconn *conn = PQconnectdb(con_char);
@@ -83,6 +83,7 @@ int main(int argc, char *argv[]) {
     //--------------------------GUI-----------------------------------
     w.display_Table(test);
     w.show();
+    w.updateGeometry();
     return a.exec();
     //--------------------------GUI-----------------------------------
     PQclear(result);

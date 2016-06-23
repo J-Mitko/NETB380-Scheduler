@@ -17,7 +17,7 @@ SOURCES += main.cpp \
     courseDB.cpp \
     lecturerDB.cpp \
     chromosome.cpp \
-    mainwindow.cpp
+    window.cpp
 
 HEADERS += \
     course.h \
@@ -26,12 +26,10 @@ HEADERS += \
     lecturerDB.h \
     lecturer.h \
     chromosome.h \
-    mainwindow.h
-
-FORMS    += mainwindow.ui
+    window.h
 
 #QMAKE_CXXFLAGS += -lpq
 #QMAKE_LFLAGS += -L D:\PSQL\bin -lpq
-QMAKE_LFLAGS += -L D:\NETB\psql\bin -lpq # jMITKO'S
+QMAKE_LFLAGS += -L D:\PSQL\bin -lpq # jMITKO'S
 #message($LIBPQ_PATH)
 
