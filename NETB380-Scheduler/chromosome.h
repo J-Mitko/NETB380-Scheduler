@@ -17,7 +17,6 @@ using namespace std;
 
 class Chromosome
 {
-private:
     vector <Schedule> chromosomes;
     vector <Schedule> prevSequence;
 
@@ -26,12 +25,11 @@ private:
     static int rng_i(int i);
     static double rng_ab();
 public:
-    Chromosome(Schedule init_schedule);
+    Chromosome(int genepool, Schedule init_schedule);
     ~Chromosome();
 
     void selector(); //TODO
     void mutate();
-    //void elitest();
 
     void crossover();//
     void Xover(int index,int timeslot_1,int timeslot_2);

@@ -17,14 +17,15 @@
 
 using namespace std;
 
-const int MAXGENS = 10;
+const int MAXGENS = 2555;
 
 int main(int argc, char *argv[]) {
 
     QApplication a(argc, argv);
     MainWindow w;
     QStringList login_input = w.login_window();
-    QString conn_str = QString("dbname=%1 host=%2 user=%3 password=%4").arg(login_input[1]).arg(login_input[0]).arg(login_input[2].arg(login_input[3]));
+    QString conn_str = QString("dbname=%1 host=%2 user=%3 password=admin").arg(login_input[1]).arg(login_input[0]).arg(login_input[2]);
+    qDebug() << conn_str;
     string str = conn_str.toStdString();
     const char* con_char = str.c_str();
     PGconn *conn = PQconnectdb(con_char);
@@ -55,34 +56,26 @@ int main(int argc, char *argv[]) {
 
     Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
-    puts("Printing schedule...");
-    schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
-    //schedule.print_schedule();
 
-
-    //-------------TEST----------------
-    Chromosome test(schedule);
-
+    Chromosome newSchedule( 255 ,schedule);
 
     for(int i = 0;i< MAXGENS;i++)
     {
-
-        test.crossover();
-        test.mutate();
-        test.evaluate();
-
-        test.report(i);
-        //test.print_all(i);
-
+        newSchedule.crossover();
+        newSchedule.mutate();
+        newSchedule.evaluate();
+        newSchedule.report(i);
     }
 
 
-    cout << "________________BEST SCHEDULE________________" <<endl;
-    test.print();
-    //---------------------------------
+    cout << "___________________BEST SCHEDULE___________________" <<endl;
+    newSchedule.print();
+
+
     //--------------------------GUI-----------------------------------
-    w.display_Table(test);
-    w.show();
+     w.display_Table(newSchedule);
+     w.show();
+
     return a.exec();
     //--------------------------GUI-----------------------------------
     PQclear(result);
