@@ -33,7 +33,7 @@ public:
     Schedule(CourseDB course_db,LecturerDB lectures_db);
     unsigned int get_course_id_at(unsigned int day, unsigned int timeslot);
     void set_course_id_at(unsigned int day, unsigned int timeslot, unsigned int course_id);
-
+    vector<unsigned int> get_timeslots() const;
     void randomize_schedule();
     void swap_timeslots(unsigned int day1, unsigned int timeslot1, unsigned int day2, unsigned int timeslot2);
     void swap_timeslots(unsigned int timeslot1, unsigned int timeslot2);

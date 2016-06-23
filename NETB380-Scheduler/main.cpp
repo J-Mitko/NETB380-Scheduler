@@ -13,18 +13,42 @@
 #include "window.h"
 #include <QApplication>
 #include <qDebug>
+#include <stdlib.h>
 
 
 using namespace std;
 
-const int MAXGENS = 10;
+const int MAXGENS = 2555;
+
+void addSchedule (PGconn *conn, Schedule schedule) {
+    if (PQstatus(conn) == CONNECTION_BAD) {
+        puts("[ERR ] Could not connect to the database.");
+        puts(PQerrorMessage(conn));
+    }
+    auto timeslots = schedule.get_timeslots();
+    string timeslotsStr = "{";
+    for (auto timeslot : timeslots) {
+        timeslotsStr += to_string(timeslot);
+        timeslotsStr += ",";
+    }
+    timeslotsStr[timeslotsStr.length() - 1] = '}';
+    string querryString = "insert into schedules (id, timeslots) values (DEFAULT, '" + timeslotsStr + "')";
+    PGresult* result = PQexec(conn, querryString.c_str());
+    if (PQresultStatus(result) != PGRES_TUPLES_OK) {
+        puts("[INFO] No data was found in table 'courses'.");
+    }
+    puts("Schedule stored!");
+}
+
 
 int main(int argc, char *argv[]) {
 
     QApplication a(argc, argv);
     window w;
     QStringList login_input = w.login_window();
+
     QString conn_str = QString("dbname=%1 host=%2 user=%3 password=%4").arg(login_input[1],login_input[0],login_input[2],login_input[3]);
+
     string str = conn_str.toStdString();
     const char* con_char = str.c_str();
     PGconn *conn = PQconnectdb(con_char);
@@ -44,7 +68,6 @@ int main(int argc, char *argv[]) {
     }
     CourseDB course_db(result);
 
-
     PQclear(result);
     result = PQexec(conn, "select * from lecturers order by id");
     if (PQresultStatus(result) != PGRES_TUPLES_OK) {
@@ -55,35 +78,28 @@ int main(int argc, char *argv[]) {
 
     Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
-    puts("Printing schedule...");
-    schedule.swap_timeslots(MONDAY, 0, TUESDAY, 0);
-    //schedule.print_schedule();
 
+    addSchedule(conn, schedule);
 
-    //-------------TEST----------------
-    Chromosome test(schedule);
-
+    Chromosome newSchedule( 255 ,schedule);
 
     for(int i = 0;i< MAXGENS;i++)
     {
-
-        test.crossover();
-        test.mutate();
-        test.evaluate();
-
-        test.report(i);
-        //test.print_all(i);
-
+        newSchedule.crossover();
+        newSchedule.mutate();
+        newSchedule.evaluate();
+        newSchedule.report(i);
     }
 
 
-    cout << "________________BEST SCHEDULE________________" <<endl;
-    test.print();
-    //---------------------------------
+    cout << "___________________BEST SCHEDULE___________________" <<endl;
+    newSchedule.print();
+
+
     //--------------------------GUI-----------------------------------
-    w.display_Table(test);
-    w.show();
-    w.updateGeometry();
+     w.display_Table(newSchedule);
+     w.show();
+
     return a.exec();
     //--------------------------GUI-----------------------------------
     PQclear(result);

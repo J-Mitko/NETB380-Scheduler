@@ -1,4 +1,4 @@
-/*  Run this with 'psql -d <db_name> -af <path_to_this_file>'
+﻿/*  Run this with 'psql -d <db_name> -af <path_to_this_file>'
  *  You must first start 'psql' and create <db_name> manually
  *  before running this script. A suitable DB name could be
  *  something like 'courseinfo'.
@@ -7,6 +7,7 @@
 drop table courses;
 drop table lecturers;
 drop table degrees;
+drop table schedules;
 
 create table lecturers (
     id              serial primary key,
@@ -38,19 +39,19 @@ create table courses (
 -- Lecutrers -- 
 
 insert into lecturers (id, firstname, lastname, preference) values
-        (DEFAULT, 'Fred', 'Flintstone', '{5,4,3,2,1,0}');
+        (DEFAULT, 'Fred', 'Flintstone', '{0,4,2,3,5,1}');
 
 insert into lecturers (id, firstname, lastname, preference) values
         (DEFAULT, 'Barny', 'Rubble', '{0,1,2,5,4,3}');
 
 insert into lecturers (id, firstname, lastname, preference) values
-        (DEFAULT, 'Wilma', 'Flintstone', '{5,4,3,2,1,0}');
+        (DEFAULT, 'Wilma', 'Flintstone', '{2,4,0,2,5,3}');
 
 insert into lecturers (id, firstname, lastname, preference) values
-        (DEFAULT, 'Betty', 'Rubble', '{5,4,3,2,1,0}');
+        (DEFAULT, 'Betty', 'Rubble', '{0,4,2,3,5,1}');
 
 insert into lecturers (id, firstname, lastname, preference) values
-        (DEFAULT, 'Mitko', 'Painera', '{5,4,0,1,3,2}');
+        (DEFAULT, 'Mitko', 'Painera', '{3,4,0,1,5,2}');
 
 -- Degrees --
 
@@ -76,10 +77,10 @@ insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_
 -- Theory Courses --
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'C++ 101 (for Informatics)', 1, 25, 1, 1, 0);
+    (DEFAULT, 'C++ 101 (for Informatics)', 1, 25, 3, 1, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'C++ 101 Lab (for Informatics)', 1, 25, 1, 1, 1);
+    (DEFAULT, 'C++ 101 Lab (for Informatics)', 1, 30, 3, 1, 1);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
     (DEFAULT, 'Computer Architecture (for Informatics)', 2, 25, 1, 1, 0);
@@ -91,7 +92,7 @@ insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_
     (DEFAULT, 'Algebra I (for Informatics)', 3, 25, 1, 1, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'History of Computing (for Informatics)', 4, 25, 1, 1, 0);
+    (DEFAULT, 'History of Computing (for Informatics)', 4, 15, 8, 1, 0);
 
 -- End for Informatics theory courses --
 
@@ -102,16 +103,16 @@ insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_
     (DEFAULT, 'C++ 101 Lab (for CS)', 1, 25, 1, 2, 7);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'Computer Architecture (for Computer Science)', 2, 25, 1, 2, 0);
+    (DEFAULT, 'Computer Architecture (for Computer Science)', 2, 25, 4, 2, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'Computer Architecture Lab (for Computer Science)', 2, 25, 1, 2, 9);
+    (DEFAULT, 'Computer Architecture Lab (for Computer Science)', 2, 25, 4, 2, 9);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
     (DEFAULT, 'Algebra I (for Computer Science)', 3, 25, 1, 2, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'History of Computing (for Computer Science)', 4, 25, 1, 2, 0);
+    (DEFAULT, 'History of Computing (for Computer Science)', 4, 25, 3, 2, 0);
 
 -- End for Computer science theory courses --
 
@@ -142,15 +143,20 @@ insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_
     (DEFAULT, 'C++ 101 Lab (for Network Technologies)', 1, 25, 1, 4, 19);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'Computer Architecture (for Network Technologies)', 2, 25, 1, 4, 0);
+    (DEFAULT, 'Computer Architecture (for Network Technologies)', 2, 15, 3, 4, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'Computer Architecture Lab (for Network Technologies)', 2, 25, 1, 4, 21);
+    (DEFAULT, 'Computer Architecture Lab (for Network Technologies)', 2, 15, 3, 4, 21);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'Algebra I (for Network Technologies)', 3, 25, 1, 4, 0);
+    (DEFAULT, 'Algebra I (for Network Technologies)', 3, 25, 2, 4, 0);
 
 insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_id, theory_course_id) values
-    (DEFAULT, 'History of Computing (for Network Technologies)', 4, 25, 1, 4, 0);
+    (DEFAULT, 'History of Computing (for Network Technologies)', 4, 25, 3, 4, 0);
 
 -- End for Network Technologies theory courses --
+
+create table schedules (
+    id              serial primary key,
+    timeslots      int[]  -- An int[6] array representing 6 lecture timeslots a day
+);

@@ -48,6 +48,10 @@ void Schedule::set_course_id_at(unsigned int day, unsigned int timeslot, unsigne
 	timeslots[index] = course_id;
 }
 
+vector<unsigned int> Schedule::get_timeslots() const {
+    return timeslots;
+}
+
 int Schedule::rng(unsigned int i) {
 	return rand() % i;
 }

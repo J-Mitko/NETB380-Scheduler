@@ -1,12 +1,14 @@
 #include "chromosome.h"
 #include <math.h>
 
-int GENEPOOL = 10;
+int GENEPOOL = 50;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
-Chromosome::Chromosome(Schedule init_schedule)
+Chromosome::Chromosome(int genepool, Schedule init_schedule)
 {
+    GENEPOOL = genepool;
+
     srand(unsigned(time(0)));
     for(int i = 0;i< GENEPOOL;i++)
     {
@@ -175,7 +177,7 @@ void Chromosome::report(int generation)
     }
     //cout << endl;
     avg = sum / (double)GENEPOOL;
-    if(generation%10==0)
+    if(generation%100==0)
         cout << "  " << generation << "                 "  << best_val << "                 " << avg << endl;
 
 }
