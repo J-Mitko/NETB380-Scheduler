@@ -12,14 +12,21 @@
 #include "chromosome.h"
 #include "mainwindow.h"
 #include <QApplication>
+#include <qDebug>
 
 
 using namespace std;
 
-const int MAXGENS = 1000;
+const int MAXGENS = 10;
 
 int main(int argc, char *argv[]) {
-    PGconn *conn = PQconnectdb("dbname=scheduler host=127.0.0.1 user=postgres password=admin");
+    QApplication a(argc, argv);
+    MainWindow w;
+    QStringList login_input = w.login_window();
+    QString conn_str = QString("dbname=%1 host=%2 user=%3 password=%4").arg(login_input[1]).arg(login_input[0]).arg(login_input[2].arg(login_input[3]));
+    string str = conn_str.toStdString();
+    const char* con_char = str.c_str();
+    PGconn *conn = PQconnectdb(con_char);
 
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
@@ -72,8 +79,7 @@ int main(int argc, char *argv[]) {
     test.print();
     //---------------------------------
     //--------------------------GUI-----------------------------------
-    QApplication a(argc, argv);
-    MainWindow w(test);
+    w.display_Table(test);
     w.show();
     return a.exec();
     //--------------------------GUI-----------------------------------

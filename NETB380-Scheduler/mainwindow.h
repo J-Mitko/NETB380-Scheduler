@@ -15,14 +15,16 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Chromosome result, QWidget *parent = 0);
+    explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    QStringList login_window();
+    void display_Table(Chromosome result);
 private slots:
     void on_tableView_clicked(const QModelIndex &index);
 
     void on_tableView_doubleClicked(const QModelIndex &index);
     void swap(QModelIndex field1, QModelIndex field2);
+
 
 private:
     Ui::MainWindow *ui;

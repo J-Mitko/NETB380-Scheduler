@@ -1,7 +1,7 @@
 #include "chromosome.h"
 #include <math.h>
 
-int GENEPOOL = 10000;
+int GENEPOOL = 10;
 int MUTATION = 2;
 double PXOVER = 0.8;
 
