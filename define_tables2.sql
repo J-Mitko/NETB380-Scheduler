@@ -7,6 +7,7 @@
 drop table courses;
 drop table lecturers;
 drop table degrees;
+drop table schedules;
 
 create table lecturers (
     id              serial primary key,
@@ -145,3 +146,9 @@ insert into courses (id, name, lecturer_id, enrolled_students, semester, degree_
     (DEFAULT, 'Course 16', 4, 17, 4, 1, 0);
 
 -- End for Network Technologies theory courses --
+
+
+create table schedules (
+    id              serial primary key,
+    timeslots      int[]  -- An int[6] array representing 6 lecture timeslots a day
+);
