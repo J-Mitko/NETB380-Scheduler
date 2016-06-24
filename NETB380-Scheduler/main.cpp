@@ -14,6 +14,7 @@
 #include <QApplication>
 #include <qDebug>
 #include <stdlib.h>
+#include <QProgressDialog>
 
 
 using namespace std;
@@ -80,9 +81,9 @@ int main(int argc, char *argv[]) {
     Schedule schedule(course_db,lecturer_db);
     schedule.randomize_schedule();
 
-    addSchedule(conn, schedule);
+
     w.display_settings_window();
-    Chromosome newSchedule(w.get_gen(),schedule);
+    Chromosome newSchedule(w.get_gen(),schedule);    
 
     int MAXGENS = w.get_max();
     for(int i = 0;i< MAXGENS;i++)
@@ -91,12 +92,13 @@ int main(int argc, char *argv[]) {
         newSchedule.mutate();
         newSchedule.evaluate();
         newSchedule.report(i);
+
     }
 
 
     cout << "___________________BEST SCHEDULE___________________" <<endl;
     newSchedule.print();
-
+    addSchedule(conn, newSchedule.get_best_chromosome());
 
     //--------------------------GUI-----------------------------------
 

@@ -30,6 +30,6 @@ HEADERS += \
 
 #QMAKE_CXXFLAGS += -lpq
 #QMAKE_LFLAGS += -L D:\PSQL\bin -lpq
-QMAKE_LFLAGS += -L D:\PSQL\bin -lpq # jMITKO'S
+QMAKE_LFLAGS += -L D:\NETB\psql\bin -lpq # jMITKO'S
 #message($LIBPQ_PATH)
 
