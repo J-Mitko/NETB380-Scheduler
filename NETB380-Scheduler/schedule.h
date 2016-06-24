@@ -6,7 +6,6 @@
 #include "courseDB.h"
 #include "lecturerDB.h"
 #include <QTableWidget>
-
 using namespace std;
 
 extern int MONDAY;
@@ -16,7 +15,7 @@ extern int THURSDAY;
 extern int FRIDAY;
 extern int SATURDAY;
 
-class Schedule {
+class Schedule{
 private:
     vector<unsigned int> timeslots; // a 36 element vector with course_ids
     CourseDB course_db; // _TODO_ this should really be a pointer

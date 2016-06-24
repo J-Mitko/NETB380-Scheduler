@@ -8,6 +8,7 @@
 #include <qDebug>
 #include <QTableWidgetItem>
 
+
 // Global variables to use in other classes
 // for convenience.
 int MONDAY = 0;

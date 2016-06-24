@@ -18,8 +18,6 @@
 
 using namespace std;
 
-const int MAXGENS = 2555;
-
 void addSchedule (PGconn *conn, Schedule schedule) {
     if (PQstatus(conn) == CONNECTION_BAD) {
         puts("[ERR ] Could not connect to the database.");
@@ -55,6 +53,9 @@ int main(int argc, char *argv[]) {
 
 
     if (PQstatus(conn) == CONNECTION_BAD) {
+        QMessageBox messageBox;
+        messageBox.critical(0,"Error","Database didn't open!Probabbly wrong input.");
+        messageBox.setFixedSize(500,200);
         puts("[ERR ] Could not connect to the database.");
         puts(PQerrorMessage(conn));
         return 0;
@@ -80,9 +81,10 @@ int main(int argc, char *argv[]) {
     schedule.randomize_schedule();
 
     addSchedule(conn, schedule);
+    w.display_settings_window();
+    Chromosome newSchedule(w.get_gen(),schedule);
 
-    Chromosome newSchedule( 255 ,schedule);
-
+    int MAXGENS = w.get_max();
     for(int i = 0;i< MAXGENS;i++)
     {
         newSchedule.crossover();
@@ -97,8 +99,13 @@ int main(int argc, char *argv[]) {
 
 
     //--------------------------GUI-----------------------------------
-     w.display_Table(newSchedule);
-     w.show();
+
+    for(int i=0;i<w.get_num();i++)
+    {
+        w.display_Table(newSchedule,i);
+    }
+
+    w.show();
 
     return a.exec();
     //--------------------------GUI-----------------------------------
